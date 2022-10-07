@@ -5,7 +5,7 @@ using UnityEngine;
 public class JoystickController : MonoBehaviour
 {
     [SerializeField]
-    private FixedJoystick fixedJoystick;
+    private DynamicJoystick dynamicJoystick;
 
     [SerializeField]
     private Rigidbody rb;
@@ -22,8 +22,8 @@ public class JoystickController : MonoBehaviour
     public void FixedUpdate()
     {
         Vector3 direction =
-            Vector3.forward * fixedJoystick.Vertical + Vector3.right * fixedJoystick.Horizontal;
+            Vector3.forward * dynamicJoystick.Vertical + Vector3.right * dynamicJoystick.Horizontal;
         Debug.Log("Dirrection " + direction);
-        rb.velocity = direction * speed * Time.fixedDeltaTime;
+        rb.AddForce(direction * speed * Time.fixedDeltaTime, ForceMode.VelocityChange);
     }
 }
