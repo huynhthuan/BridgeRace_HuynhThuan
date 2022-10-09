@@ -17,13 +17,21 @@ public class JoystickController : MonoBehaviour
     void Start() { }
 
     // Update is called once per frame
-    void Update() { }
-
-    public void FixedUpdate()
+    void Update()
     {
         Vector3 direction =
             Vector3.forward * dynamicJoystick.Vertical + Vector3.right * dynamicJoystick.Horizontal;
-        Debug.Log("Dirrection " + direction);
-        rb.AddForce(direction * speed * Time.fixedDeltaTime, ForceMode.VelocityChange);
+        // Debug.Log("Dirrection " + direction);
+
+        rb.velocity = direction * speed * Time.deltaTime;
+    }
+
+    public void FixedUpdate()
+    {
+        // Vector3 direction =
+        //     Vector3.forward * dynamicJoystick.Vertical + Vector3.right * dynamicJoystick.Horizontal;
+        // // Debug.Log("Dirrection " + direction);
+
+        // rb.velocity = direction * speed * Time.fixedDeltaTime;
     }
 }
