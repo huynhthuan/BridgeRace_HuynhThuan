@@ -10,13 +10,12 @@ public class CameraFollow : MonoBehaviour
     [SerializeField]
     private Vector3 offset;
 
-    // Start is called before the first frame update
+    // Start is called before the first frame updates
     void Start() { }
 
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("player pos " + target.position);
         transform.position = target.position + offset;
     }
 }

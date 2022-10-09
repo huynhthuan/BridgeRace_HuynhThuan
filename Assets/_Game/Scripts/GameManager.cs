@@ -2,10 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class GameManager : Singleton<GameManager>
 {
     [SerializeField]
-    private FixedJoystick joystick;
+    private int botNumber;
+
+    [SerializeField]
+    public Material[] listColor;
 
     // Start is called before the first frame update
     void Start()
@@ -13,13 +16,16 @@ public class GameManager : MonoBehaviour
         OnInit();
     }
 
-    void OnInit() {
-
-    }
+    void OnInit() { }
 
     // Update is called once per frame
     void Update()
     {
         // joystick.AxisOptions;
+    }
+
+    public int CountPlayer()
+    {
+        return botNumber + 1;
     }
 }

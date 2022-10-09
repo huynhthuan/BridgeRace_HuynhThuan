@@ -10,6 +10,9 @@ public class StageManager : MonoBehaviour
     [SerializeField]
     private GameObject brickPrefab;
 
+    public int brickAmount;
+    public int playerAmount;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -18,21 +21,42 @@ public class StageManager : MonoBehaviour
 
     public void OnInit()
     {
-        GenerateBrickPlan();
+        brickAmount = listBrickPosition.Length;
+        playerAmount = GameManager.Instance.CountPlayer();
+
+        GenerateBrickPlan(brickAmount, playerAmount);
     }
 
-    public void GenerateBrickPlan()
+    public void GenerateBrickPlan(int brickAmount, int playerAmount)
     {
-        if (listBrickPosition.Length == 0)
+        if (brickAmount == 0)
         {
             return;
         }
-        foreach (Transform brickPos in listBrickPosition)
+
+        // Brick amount per player
+        int brickPerPlayer = brickAmount / playerAmount;
+        Debug.Log("brickPerPlayer " + brickPerPlayer);
+        Debug.Log("playerAmount " + playerAmount);
+
+        // Set color for brick of player
+        for (int i = 0; i < playerAmount; i++)
         {
-            GameObject brickObject = Instantiate(brickPrefab, Vector3.zero, Quaternion.identity);
-            brickObject.SetActive(true);
-            brickObject.transform.SetParent(transform);
-            brickObject.GetComponent<Brick>().OnInit(BRICK_COLOR.BLUE, brickPos.position);
+            Debug.Log("i loop " + i);
+            for (int j = i * brickPerPlayer; j < brickPerPlayer * (i + 1); j++)
+            {
+                Debug.Log("Generate brick number " + j);
+                GameObject brickObject = Instantiate(
+                    brickPrefab,
+                    Vector3.zero,
+                    Quaternion.identity
+                );
+                brickObject.SetActive(true);
+                brickObject.transform.SetParent(transform);
+                brickObject
+                    .GetComponent<Brick>()
+                    .OnInit((BRICK_COLOR)i, listBrickPosition[j].position);
+            }
         }
     }
 
