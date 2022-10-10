@@ -14,18 +14,18 @@ public class Brick : MonoBehaviour
 {
     public BRICK_COLOR color;
 
-    private Material material;
+    private Renderer rendererComp;
 
     // Start is called before the first frame update
     void Start() { }
 
     public void OnInit(BRICK_COLOR brickColor, Vector3 position)
     {
-        material = transform.GetComponent<MeshRenderer>().material;
+        rendererComp = transform.GetComponent<Renderer>();
         color = brickColor;
         transform.position = position;
 
-        SetColorBrick((int)color);
+        SetColorBrick(color);
     }
 
     public void OnDespawn()
@@ -36,8 +36,8 @@ public class Brick : MonoBehaviour
     // Update is called once per frame
     void Update() { }
 
-    private void SetColorBrick(int brickColor)
+    private void SetColorBrick(BRICK_COLOR brickColor)
     {
-        material = GameManager.Instance.listColor[brickColor];
+        rendererComp.material = GameManager.Instance.listColor[(int)brickColor];
     }
 }

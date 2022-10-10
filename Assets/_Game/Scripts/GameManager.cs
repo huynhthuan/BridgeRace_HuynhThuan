@@ -10,6 +10,9 @@ public class GameManager : Singleton<GameManager>
     [SerializeField]
     public Material[] listColor;
 
+    [SerializeField]
+    public BRICK_COLOR playerColorTarget = BRICK_COLOR.COLOR1;
+
     // Start is called before the first frame update
     void Start()
     {

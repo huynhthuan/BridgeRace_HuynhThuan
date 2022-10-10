@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class StageManager : MonoBehaviour
 {
@@ -34,6 +35,9 @@ public class StageManager : MonoBehaviour
             return;
         }
 
+        // Random position list brick
+        ShufferListBrickPosition();
+
         // Brick amount per player
         int brickPerPlayer = brickAmount / playerAmount;
         Debug.Log("brickPerPlayer " + brickPerPlayer);
@@ -53,11 +57,16 @@ public class StageManager : MonoBehaviour
                 );
                 brickObject.SetActive(true);
                 brickObject.transform.SetParent(transform);
-                brickObject
-                    .GetComponent<Brick>()
-                    .OnInit((BRICK_COLOR)i, listBrickPosition[j].position);
+                Brick brickComponent = brickObject.GetComponent<Brick>();
+
+                brickComponent.OnInit((BRICK_COLOR)i, listBrickPosition[j].position);
             }
         }
+    }
+
+    public void ShufferListBrickPosition()
+    {
+        listBrickPosition = listBrickPosition.OrderBy(x => Random.Range(0, brickAmount)).ToArray();
     }
 
     // Update is called once per frame
