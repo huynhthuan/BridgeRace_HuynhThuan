@@ -40,4 +40,6 @@ public class Brick : MonoBehaviour
     {
         rendererComp.material = GameManager.Instance.listColor[(int)brickColor];
     }
+
+
 }

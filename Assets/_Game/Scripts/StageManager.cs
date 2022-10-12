@@ -11,8 +11,8 @@ public class StageManager : MonoBehaviour
     [SerializeField]
     private GameObject brickPrefab;
 
-    public int brickAmount;
-    public int playerAmount;
+    private int brickAmount;
+    private int playerAmount;
 
     // Start is called before the first frame update
     void Start()

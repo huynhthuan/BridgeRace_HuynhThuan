@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using System;
 
-public class BrickHolder : MonoBehaviour
+public class BrickHolder : Singleton<BrickHolder>
 {
     [SerializeField]
     private GameObject brickHeldPrefab;
@@ -32,8 +33,8 @@ public class BrickHolder : MonoBehaviour
         GameObject brickHeld = Instantiate(brickGameobject, transform, false);
         Brick brickHeldComp = brickHeld.GetComponent<Brick>();
         brickHeldComp.OnInit(GameManager.Instance.playerColorTarget, Vector3.zero);
-        brickHeld.transform.localPosition = BrickNumberToPosition(brickAmount);
         stackBrickIsHeld.Push(brickHeld);
+        brickHeld.transform.localPosition = BrickNumberToPosition(brickAmount);
     }
 
     public void RemoveBrick()

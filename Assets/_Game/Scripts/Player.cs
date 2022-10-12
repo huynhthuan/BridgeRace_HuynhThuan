@@ -22,13 +22,7 @@ public class Player : MonoBehaviour
         transform.position = newPosition;
     }
 
-    private void OnCollisionEnter(Collision other)
-    {
-        if (other.gameObject.tag != "Brick")
-        {
-            return;
-        }
 
-        Debug.Log("other " + other.gameObject.GetComponent<Brick>().color);
-    }
+
+
 }
