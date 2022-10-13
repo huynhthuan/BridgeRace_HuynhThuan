@@ -6,11 +6,12 @@ TagManager:
   tags:
   - Brick
   - Ground
+  - Brigde Brick
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Brigde Brick
   - Water
   - UI
   - 
