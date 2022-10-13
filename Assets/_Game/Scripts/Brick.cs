@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum BRICK_COLOR
+public enum BrickColor
 {
     COLOR1,
     COLOR2,
@@ -12,14 +12,14 @@ public enum BRICK_COLOR
 
 public class Brick : MonoBehaviour
 {
-    public BRICK_COLOR color;
+    public BrickColor color;
 
     private Renderer rendererComp;
 
     // Start is called before the first frame update
     void Start() { }
 
-    public void OnInit(BRICK_COLOR brickColor, Vector3 position)
+    public void OnInit(BrickColor brickColor, Vector3 position)
     {
         rendererComp = transform.GetComponent<Renderer>();
         color = brickColor;
@@ -36,7 +36,7 @@ public class Brick : MonoBehaviour
     // Update is called once per frame
     void Update() { }
 
-    private void SetColorBrick(BRICK_COLOR brickColor)
+    private void SetColorBrick(BrickColor brickColor)
     {
         rendererComp.material = GameManager.Instance.listColor[(int)brickColor];
     }

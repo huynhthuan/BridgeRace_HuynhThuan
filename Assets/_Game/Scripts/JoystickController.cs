@@ -18,6 +18,7 @@ public class JoystickController : MonoBehaviour
 
     private Vector3 direction;
     private RaycastHit slopeHit;
+    private RaycastHit groundHit;
 
     // Start is called before the first frame update
     void Start() { }
@@ -36,40 +37,52 @@ public class JoystickController : MonoBehaviour
             rb.transform.rotation = rotation;
         }
 
-        if (OnSlope())
+        if (OnGround())
         {
-            rb.velocity = GetSlopeMoveDirection() * speed * 20f;
-
-            if (rb.velocity.y > 0)
-            {
-                rb.AddForce(Vector3.down * 80f, ForceMode.Force);
-            }
+            rb.velocity = direction * speed * Time.deltaTime;
         }
 
-        rb.velocity = direction * speed * Time.deltaTime;
 
-        Debug.DrawRay(
-            transform.position,
-            transform.TransformDirection(Vector3.down) * Mathf.Infinity,
-            Color.yellow
-        );
+
+        if (OnSlope())
+        {
+            Debug.Log("On slope");
+            transform.position = new Vector3(transform.position.x, slopeHit.point.y, transform.position.z);
+        }
     }
 
-    private Vector3 GetSlopeMoveDirection()
-    {
-        return Vector3.ProjectOnPlane(direction, slopeHit.normal).normalized;
-    }
 
     private bool OnSlope()
     {
         if (Physics.Raycast(transform.position, Vector3.down, out slopeHit, Mathf.Infinity))
         {
             float angle = Vector3.Angle(Vector3.up, slopeHit.normal);
-            return angle < 40f && angle != 0;
+            return angle > 0;
         }
 
         return false;
     }
 
-    public void FixedUpdate() { }
+    public bool OnGround()
+    {
+        if (Physics.Raycast(transform.position, Vector3.down, out groundHit, Mathf.Infinity))
+        {
+            Debug.Log("Hit " + groundHit.point);
+            Debug.DrawRay(
+               transform.position,
+               transform.TransformDirection(Vector3.down) * groundHit.distance,
+               Color.yellow
+           );
+
+            return Vector3.Distance(transform.position, groundHit.point) <= 1f;
+
+        }
+        return false;
+    }
+
+    public void FixedUpdate()
+    {
+
+
+    }
 }

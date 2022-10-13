@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public BRICK_COLOR brickColorTarget;
+    public BrickColor brickColorTarget;
 
     // Start is called before the first frame update
     void Start()
@@ -21,8 +21,4 @@ public class Player : MonoBehaviour
     {
         transform.position = newPosition;
     }
-
-
-
-
 }

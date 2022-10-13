@@ -9,7 +9,7 @@ public class BrickHolder : Singleton<BrickHolder>
     [SerializeField]
     private GameObject brickHeldPrefab;
 
-    public Stack<GameObject> stackBrickIsHeld = new Stack<GameObject>();
+    private Stack<GameObject> stackBrickIsHeld = new Stack<GameObject>();
 
     public int brickAmount => stackBrickIsHeld.Count;
 
