@@ -6,6 +6,7 @@ public class BrickBrigde : MonoBehaviour
 {
     public BrickColor currentColor;
     private Renderer rendererComp;
+    private float colorAlpha;
 
     // Start is called before the first frame update
     void Start()
@@ -16,9 +17,15 @@ public class BrickBrigde : MonoBehaviour
     // Update is called once per frame
     void Update() { }
 
-    private void SetColorBrick(BrickColor brickColor)
+    public void SetColorBrick(BrickColor brickColor)
     {
+        if (BrickHolder.Instance.brickAmount == 0 || brickColor == currentColor)
+        {
+            return;
+        }
+
         currentColor = brickColor;
         rendererComp.material = GameManager.Instance.listColor[(int)currentColor];
+        BrickHolder.Instance.RemoveBrick();
     }
 }

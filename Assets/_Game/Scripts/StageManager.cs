@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-public class StageManager : MonoBehaviour
+public class StageManager : Singleton<StageManager>
 {
     [SerializeField]
     private Transform[] listBrickPosition;
@@ -11,8 +11,12 @@ public class StageManager : MonoBehaviour
     [SerializeField]
     private GameObject brickPrefab;
 
+    [SerializeField]
+    public Transform planBrick;
+
     private int brickAmount;
     private int playerAmount;
+    private int brickPerPlayer;
 
     // Start is called before the first frame update
     void Start()
@@ -24,6 +28,7 @@ public class StageManager : MonoBehaviour
     {
         brickAmount = listBrickPosition.Length;
         playerAmount = GameManager.Instance.CountPlayer();
+        brickPerPlayer = brickAmount / playerAmount;
 
         GenerateBrickPlan(brickAmount, playerAmount);
     }
@@ -56,10 +61,10 @@ public class StageManager : MonoBehaviour
                     Quaternion.identity
                 );
                 brickObject.SetActive(true);
-                brickObject.transform.SetParent(transform);
+                brickObject.transform.SetParent(planBrick.transform);
                 Brick brickComponent = brickObject.GetComponent<Brick>();
 
-                brickComponent.OnInit((BrickColor)i, listBrickPosition[j].position);
+                brickComponent.OnInit((BrickColor)(i + 1), listBrickPosition[j].position, j);
             }
         }
     }
@@ -67,6 +72,11 @@ public class StageManager : MonoBehaviour
     public void ShufferListBrickPosition()
     {
         listBrickPosition = listBrickPosition.OrderBy(x => Random.Range(0, brickAmount)).ToArray();
+    }
+
+    public Transform GetBrickObjectByIndex(int index)
+    {
+        return planBrick.GetChild(index);
     }
 
     // Update is called once per frame

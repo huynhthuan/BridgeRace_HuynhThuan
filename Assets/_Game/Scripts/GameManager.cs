@@ -21,12 +21,6 @@ public class GameManager : Singleton<GameManager>
 
     void OnInit() { }
 
-    // Update is called once per frame
-    void Update()
-    {
-        // joystick.AxisOptions;
-    }
-
     public int CountPlayer()
     {
         return botNumber + 1;

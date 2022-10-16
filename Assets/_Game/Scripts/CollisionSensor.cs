@@ -2,50 +2,43 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CollisionSensor : MonoBehaviour
+public class CollisionSensor : Singleton<CollisionSensor>
 {
-    // Start is called before the first frame update
-    void Start() { }
+    BrickColor playerColor;
+    private Collider currentCollider;
 
-    // Update is called once per frame
-    private void FixedUpdate()
+    private void Start()
     {
-        RaycastHit hit;
-        // Does the ray intersect any objects excluding the player layer
-        if (
-            Physics.Raycast(
-                transform.position,
-                transform.TransformDirection(Vector3.down),
-                out hit,
-                Mathf.Infinity
-            )
-        )
+        playerColor = GameManager.Instance.playerColorTarget;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        currentCollider = other;
+        if (other.tag == "Brick")
         {
-            Debug.DrawRay(
-                transform.position,
-                transform.TransformDirection(Vector3.down) * hit.distance,
-                Color.yellow
-            );
-
-            GameObject hitGameObject = hit.collider.gameObject;
-
-            if (hitGameObject.tag == "Brick")
+            Brick brickComp = other.GetComponent<Brick>();
+            if (brickComp.color == playerColor)
             {
-                Brick brickComp = hitGameObject.GetComponent<Brick>();
-                if (brickComp.color == GameManager.Instance.playerColorTarget)
-                {
-                    Destroy(hitGameObject);
-                    BrickHolder.Instance.AddBrick();
-                }
+                other.gameObject.SetActive(false);
+                BrickHolder.Instance.AddBrick(brickComp.indexOnPlane);
             }
         }
-        else
+
+        if (other.tag == "Brigde Brick")
         {
-            Debug.DrawRay(
-                transform.position,
-                transform.TransformDirection(Vector3.down) * 1000,
-                Color.white
-            );
+            BrickBrigde brickComp = other.GetComponent<BrickBrigde>();
+
+            if (brickComp.currentColor != playerColor)
+            {
+                BrickBrigde brickbrigdeComp = other.GetComponent<BrickBrigde>();
+                brickbrigdeComp.SetColorBrick(playerColor);
+            }
         }
+    }
+
+    public Collider GetCurrentCollider()
+    {
+        return currentCollider;
     }
 }

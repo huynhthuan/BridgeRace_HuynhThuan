@@ -27,12 +27,12 @@ public class BrickHolder : Singleton<BrickHolder>
 
     public void SuckBrick(Vector3 brickPosition) { }
 
-    public void AddBrick()
+    public void AddBrick(int indexOnPlan)
     {
         GameObject brickGameobject = brickHeldPrefab.gameObject;
         GameObject brickHeld = Instantiate(brickGameobject, transform, false);
         Brick brickHeldComp = brickHeld.GetComponent<Brick>();
-        brickHeldComp.OnInit(GameManager.Instance.playerColorTarget, Vector3.zero);
+        brickHeldComp.OnInit(GameManager.Instance.playerColorTarget, Vector3.zero, indexOnPlan);
         stackBrickIsHeld.Push(brickHeld);
         brickHeld.transform.localPosition = BrickNumberToPosition(brickAmount);
     }
@@ -43,7 +43,12 @@ public class BrickHolder : Singleton<BrickHolder>
         {
             return;
         }
-        Destroy(stackBrickIsHeld.Pop());
+        GameObject brickToRemove = stackBrickIsHeld.Pop();
+        Transform brickOnPlaneRegenerate = StageManager.Instance.GetBrickObjectByIndex(
+            brickToRemove.GetComponent<BrickHeld>().indexOnPlane
+        );
+        brickOnPlaneRegenerate.gameObject.SetActive(true);
+        Destroy(brickToRemove);
     }
 
     public void RemoveAllBrick()
@@ -70,7 +75,7 @@ public class BrickHolderButton : Editor
         DrawDefaultInspector();
         if (GUILayout.Button("Add 1 brick is held"))
         {
-            ((BrickHolder)target).AddBrick();
+            ((BrickHolder)target).AddBrick(0);
         }
 
         if (GUILayout.Button("Remove 1 brick is held"))
