@@ -37,17 +37,5 @@ public class JoystickController : MonoBehaviour
             Quaternion rotation = Quaternion.LookRotation(direction, Vector3.up);
             rb.transform.rotation = rotation;
         }
-
-        if (Player.Instance.onSlope)
-        {
-            rb.useGravity = false;
-            float yPos = Player.Instance.slopeHit.point.y + 1f;
-            // Debug.Log("V3 " + new Vector3(transform.position.x, yPos, transform.position.z));
-            transform.position = new Vector3(transform.position.x, yPos, transform.position.z);
-        }
-        else
-        {
-            rb.useGravity = true;
-        }
     }
 }

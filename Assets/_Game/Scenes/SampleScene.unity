@@ -4124,6 +4124,10 @@ PrefabInstance:
       propertyPath: dynamicJoystick
       value: 
       objectReference: {fileID: 269438418}
+    - target: {fileID: 1576792536555978043, guid: 2ef1822ac7c5d1241a84bc2d4984a3c8, type: 3}
+      propertyPath: layerMask.m_Bits
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2002801882312567908, guid: 2ef1822ac7c5d1241a84bc2d4984a3c8, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -4134,11 +4138,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2002801882312567908, guid: 2ef1822ac7c5d1241a84bc2d4984a3c8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.28
+      value: 3.78
       objectReference: {fileID: 0}
     - target: {fileID: 2002801882312567908, guid: 2ef1822ac7c5d1241a84bc2d4984a3c8, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.51
+      value: -2.5
       objectReference: {fileID: 0}
     - target: {fileID: 2002801882312567908, guid: 2ef1822ac7c5d1241a84bc2d4984a3c8, type: 3}
       propertyPath: m_LocalRotation.w

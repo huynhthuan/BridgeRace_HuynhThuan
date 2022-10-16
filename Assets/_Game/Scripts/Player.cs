@@ -16,8 +16,13 @@ public class Player : Singleton<Player>
     [SerializeField]
     private Transform checkGround;
 
+    [SerializeField]
+    private Transform checkSlope;
+
     public RaycastHit groundHit;
     public RaycastHit slopeHit;
+
+    public LayerMask layerMask;
 
     // Start is called before the first frame update
     void Start()
@@ -37,33 +42,44 @@ public class Player : Singleton<Player>
 
     private void FixedUpdate()
     {
-        if (Physics.Raycast(checkGround.position, Vector3.down, out groundHit, Mathf.Infinity, 3))
+        if (Physics.Raycast(checkGround.position, Vector3.down, out groundHit, Mathf.Infinity))
         {
             if (groundHit.collider.tag == "Ground")
             {
                 Debug.DrawRay(
-                    transform.position,
+                    checkGround.position,
                     transform.TransformDirection(Vector3.down) * groundHit.distance,
                     Color.yellow
                 );
 
-                onGround = Vector3.Distance(checkGround.position, groundHit.point) <= 0.3f;
+                onGround = Vector3.Distance(checkGround.position, groundHit.point) <= 0.2f;
             }
         }
 
-        if (Physics.Raycast(transform.position, Vector3.down, out slopeHit, Mathf.Infinity, 3))
+        if (Physics.Raycast(checkSlope.position, Vector3.down, out slopeHit, Mathf.Infinity,layerMask))
         {
-            Debug.Log("slopeHit.collider.tag " + slopeHit.collider.tag);
+            Debug.Log("slopeHit.collider.tag " + slopeHit.collider.name);
+
+            Debug.DrawRay(
+                checkSlope.position,
+                transform.TransformDirection(Vector3.down) * 100f,
+                Color.red
+            );
+
             if (slopeHit.collider.tag == "Ground")
             {
-                Debug.DrawRay(
-                    transform.position,
-                    transform.TransformDirection(Vector3.down) * slopeHit.distance,
-                    Color.red
-                );
-
                 float angle = Vector3.Angle(Vector3.up, slopeHit.normal);
-                onSlope = angle > 0;
+                Debug.Log("Check angle " + (angle > 0));
+                if (angle > 0)
+                {
+                    float yPos = Player.Instance.slopeHit.point.y + 1f;
+                    // Debug.Log("V3 " + new Vector3(transform.position.x, yPos, transform.position.z));
+                    transform.position = new Vector3(
+                        transform.position.x,
+                        yPos,
+                        transform.position.z
+                    );
+                }
             }
             else
             {
@@ -72,9 +88,5 @@ public class Player : Singleton<Player>
         }
     }
 
-    private void OnTriggerEnter(Collider other) {
-      if(other.gameObject.tag == "Brigde Brick"){
-
-      }
-    }
+    private void OnTriggerEnter(Collider other) { }
 }

@@ -60,7 +60,7 @@ GameObject:
   - component: {fileID: 71861838295571255}
   - component: {fileID: 3061522161657852020}
   - component: {fileID: 1148510042826619686}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Brigde_Plan
   m_TagString: Ground
   m_Icon: {fileID: 0}
