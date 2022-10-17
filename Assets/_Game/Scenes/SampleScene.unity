@@ -2388,11 +2388,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2525092893385924202, guid: deda977d94d9b464d916935f0a2470de, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.54
+      value: 5.46
       objectReference: {fileID: 0}
     - target: {fileID: 2525092893385924202, guid: deda977d94d9b464d916935f0a2470de, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 52.73
+      value: 52.72
       objectReference: {fileID: 0}
     - target: {fileID: 2525092893385924202, guid: deda977d94d9b464d916935f0a2470de, type: 3}
       propertyPath: m_LocalRotation.w
@@ -4213,6 +4213,10 @@ PrefabInstance:
       propertyPath: dynamicJoystick
       value: 
       objectReference: {fileID: 269438418}
+    - target: {fileID: 1576792536555978043, guid: 2ef1822ac7c5d1241a84bc2d4984a3c8, type: 3}
+      propertyPath: speed
+      value: 500
+      objectReference: {fileID: 0}
     - target: {fileID: 2002801882312567908, guid: 2ef1822ac7c5d1241a84bc2d4984a3c8, type: 3}
       propertyPath: m_RootOrder
       value: 4

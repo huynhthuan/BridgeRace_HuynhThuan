@@ -8,6 +8,9 @@ public class Character : MonoBehaviour
     public BrickColor brickColorTarget;
 
     [SerializeField]
+    public BrickHolder brickHolder;
+
+    [SerializeField]
     public Collider colliderPlayer;
 
     [SerializeField]
@@ -25,23 +28,24 @@ public class Character : MonoBehaviour
 
     public int currentStageLevel = 0;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        OnInit();
-    }
+    public bool isCanMove = true;
 
-    public void OnInit() { }
+    // Start is called before the first frame update
+    void Start() { }
+
+    public void OnInit(BrickColor color)
+    {
+        SetColorTarget(color);
+        brickHolder.OnInit(color);
+        collisionSensor.OnInit(brickHolder, color);
+    }
 
     public void SetPositionPlayer(Vector3 newPosition)
     {
         transform.position = newPosition;
     }
 
-    private void Update()
-    {
-        Debug.Log(gameObject.name + " IsGrounded() " + IsGrounded());
-    }
+    private void Update() { }
 
     public bool IsGrounded()
     {
@@ -53,7 +57,10 @@ public class Character : MonoBehaviour
         if (Physics.Raycast(centerPoint, Vector3.down, out groundHit, distance, layerMask))
         {
             string tagCollider = groundHit.collider.tag;
-            return tagCollider == "Ground" || tagCollider == "Brick" || tagCollider == "Brigde";
+            if (tagCollider == "Ground" || tagCollider == "Brick" || tagCollider == "Brigde")
+            {
+                return true;
+            }
         }
 
         return false;
@@ -61,6 +68,8 @@ public class Character : MonoBehaviour
 
     public bool IsOnBrigde()
     {
+        Debug.Log("brickHolder.brickAmount" + (brickHolder.brickAmount == 0));
+
         float distance = colliderPlayer.bounds.extents.y + 0.1f;
         Vector3 centerPoint = colliderPlayer.bounds.center;
 
@@ -77,25 +86,16 @@ public class Character : MonoBehaviour
 
     public void Move(Vector3 direction)
     {
-        if (IsGrounded())
+        if (IsGrounded() && isCanMove)
         {
             Vector3 velocityAdjust = AdjustVelocityToSlope(direction * speed * Time.deltaTime);
 
-            Collider collider = CollisionSensor.Instance.GetCurrentCollider();
-
-            if (
-                BrickHolder.Instance.brickAmount == 0
-                && IsOnBrigde()
-                && !(velocityAdjust.y < 0)
-                && collider.tag == "Brigde Brick"
-                && collider.gameObject.GetComponent<BrickBrigde>().currentColor == BrickColor.COLOR0
-            )
-            {
-                rb.velocity = Vector3.zero;
-                return;
-            }
-
             rb.velocity = velocityAdjust;
+        }
+
+        if (!isCanMove)
+        {
+            rb.velocity = Vector3.zero;
         }
 
         if (Vector3.Distance(direction, Vector3.zero) > 0.01f)

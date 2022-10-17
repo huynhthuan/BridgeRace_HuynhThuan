@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BrickBrigde : MonoBehaviour
 {
-    public BrickColor currentColor;
+    public BrickColor color;
     private Renderer rendererComp;
     private float colorAlpha;
 
@@ -19,13 +19,7 @@ public class BrickBrigde : MonoBehaviour
 
     public void SetColorBrick(BrickColor brickColor)
     {
-        if (BrickHolder.Instance.brickAmount == 0 || brickColor == currentColor)
-        {
-            return;
-        }
-
-        currentColor = brickColor;
-        rendererComp.material = GameManager.Instance.listColor[(int)currentColor];
-        BrickHolder.Instance.RemoveBrick();
+        color = brickColor;
+        rendererComp.material = GameManager.Instance.listColor[(int)color];
     }
 }

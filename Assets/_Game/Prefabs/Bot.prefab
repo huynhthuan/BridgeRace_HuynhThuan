@@ -130,14 +130,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   brickColorTarget: 0
+  brickHolder: {fileID: 3394527402862336388}
   colliderPlayer: {fileID: 4893835592697370864}
   collisionSensor: {fileID: 2648968243756108231}
   rb: {fileID: 7067435556574151296}
-  speed: 500
+  speed: 2000
   layerMask:
     serializedVersion: 2
     m_Bits: 65
   currentStageLevel: 0
+  isCanMove: 1
   brickTartget: {fileID: 0}
   limitBrickHolder: 0
 --- !u!1 &445777436940422127

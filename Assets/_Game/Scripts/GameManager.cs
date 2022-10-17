@@ -27,10 +27,7 @@ public class GameManager : Singleton<GameManager>
 
     void OnInit()
     {
-        for (int i = 0; i < botNumber; i++)
-        {
-            SpawnBot(i + 2);
-        }
+        InitBot();
     }
 
     public int CountPlayer()
@@ -50,6 +47,16 @@ public class GameManager : Singleton<GameManager>
             Quaternion.identity
         );
         Bot botComp = botObject.GetComponent<Bot>();
-        botComp.SetColorTarget((BrickColor)botIndex);
+        botComp.OnInit((BrickColor)botIndex);
+    }
+
+    public void InitBot()
+    {
+        for (int i = 0; i < botNumber; i++)
+        {
+            SpawnBot(i + 2);
+        }
+
+        player.OnInit(playerColorTarget);
     }
 }

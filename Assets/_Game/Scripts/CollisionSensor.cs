@@ -5,41 +5,64 @@ using UnityEngine;
 public class CollisionSensor : Singleton<CollisionSensor>
 {
     BrickColor playerColor;
-    private Collider currentCollider;
+    private BrickColor currentCollorColision;
 
-    private void Start()
+    private BrickHolder brickHolderComp;
+
+    private Character player;
+
+    private void Start() { }
+
+    public void OnInit(BrickHolder brickHolder, BrickColor colorTarget)
     {
-        playerColor = GetComponentInParent<Character>().brickColorTarget;
-        Debug.Log("playerColor " + playerColor);
+        playerColor = colorTarget;
+        brickHolderComp = brickHolder;
+        player = GetComponentInParent<Character>();
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        currentCollider = other;
         if (other.tag == "Brick")
         {
             Brick brickComp = other.GetComponent<Brick>();
+            currentCollorColision = brickComp.color;
             if (brickComp.color == playerColor)
             {
                 other.gameObject.SetActive(false);
-                BrickHolder.Instance.AddBrick(brickComp.indexOnPlane);
+                brickHolderComp.AddBrick(brickComp.indexOnPlane);
             }
         }
 
         if (other.tag == "Brigde Brick")
         {
-            BrickBrigde brickComp = other.GetComponent<BrickBrigde>();
+            BrickBrigde brickbrigdeComp = other.GetComponent<BrickBrigde>();
+            currentCollorColision = brickbrigdeComp.color;
 
-            if (brickComp.currentColor != playerColor)
+            if (
+                (brickHolderComp.brickAmount == 0 || brickbrigdeComp.color == playerColor)
+                && !(player.rb.velocity.y < 0)
+            )
             {
-                BrickBrigde brickbrigdeComp = other.GetComponent<BrickBrigde>();
-                brickbrigdeComp.SetColorBrick(playerColor);
+                player.isCanMove = false;
+                return;
             }
+            else
+            {
+                player.isCanMove = true;
+            }
+
+            brickbrigdeComp.SetColorBrick(playerColor);
+            brickHolderComp.RemoveBrick();
         }
     }
 
-    public Collider GetCurrentCollider()
+    public BrickColor GetCurrentColorCollider()
     {
-        return currentCollider;
+        return currentCollorColision;
+    }
+
+    private void Update()
+    {
+        transform.rotation = Quaternion.identity;
     }
 }

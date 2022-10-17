@@ -241,6 +241,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   brickColorTarget: 1
+  brickHolder: {fileID: 3860956128953915409}
   colliderPlayer: {fileID: 5137790539617021113}
   collisionSensor: {fileID: 7627837246091141622}
   rb: {fileID: 3957858923482344368}

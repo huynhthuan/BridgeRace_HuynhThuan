@@ -16,7 +16,6 @@ public class Bot : Character
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("Change to idle");
         ChangeState(new BotIdleState());
     }
 
@@ -27,10 +26,6 @@ public class Bot : Character
         {
             currentState.OnExecute(this);
         }
-
-        // if (Vector3.Distance(bot.transform.position, bot.brickTartget.position) <= 0.01f) {
-
-        // }
     }
 
     public void ChangeState(IStateBot newState)
@@ -75,6 +70,11 @@ public class Bot : Character
 
     public Vector3 GetDirToBrickCollect()
     {
+        if (dictionaryBrick.Count == 0)
+        {
+            return Vector3.zero;
+        }
+
         int indexBrickNearest = dictionaryBrick.Aggregate((x, y) => x.Value <= y.Value ? x : y).Key;
 
         Transform nearestBrick = StageManager.Instance.planBrick.transform.GetChild(
@@ -83,7 +83,10 @@ public class Bot : Character
 
         brickTartget = nearestBrick;
 
-        nearestBrick.GetComponent<Brick>().targetSelect.GetComponent<TargetSelect>().ActiveSelect();
+        nearestBrick
+            .GetComponent<Brick>()
+            .targetSelect.gameObject.GetComponent<TargetSelect>()
+            .ActiveSelect();
 
         return (
             new Vector3(nearestBrick.position.x, transform.position.y, nearestBrick.position.z)

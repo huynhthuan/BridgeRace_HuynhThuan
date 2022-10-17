@@ -4,7 +4,7 @@ using UnityEditor;
 using UnityEngine;
 using System;
 
-public class BrickHolder : Singleton<BrickHolder>
+public class BrickHolder : MonoBehaviour
 {
     [SerializeField]
     private GameObject brickHeldPrefab;
@@ -13,14 +13,14 @@ public class BrickHolder : Singleton<BrickHolder>
 
     public int brickAmount => stackBrickIsHeld.Count;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        OnInit();
-    }
+    private BrickColor colorTarget;
 
-    public void OnInit()
+    // Start is called before the first frame update
+    void Start() { }
+
+    public void OnInit(BrickColor color)
     {
+        colorTarget = color;
         // Reset brick held
         RemoveAllBrick();
     }
@@ -37,13 +37,10 @@ public class BrickHolder : Singleton<BrickHolder>
             transform
         );
         Brick brickHeldComp = brickHeld.GetComponent<Brick>();
-        brickHeldComp.OnInit(
-            GetComponentInParent<Character>().brickColorTarget,
-            Vector3.zero,
-            indexOnPlan
-        );
+        brickHeldComp.OnInit(colorTarget, Vector3.zero, indexOnPlan);
         stackBrickIsHeld.Push(brickHeld);
         brickHeld.transform.localPosition = BrickNumberToPosition(brickAmount);
+        brickHeld.transform.localRotation = Quaternion.identity;
     }
 
     public void RemoveBrick()
