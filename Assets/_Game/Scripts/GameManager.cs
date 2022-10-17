@@ -8,6 +8,9 @@ public class GameManager : Singleton<GameManager>
     private int botNumber;
 
     [SerializeField]
+    private GameObject botPrefab;
+
+    [SerializeField]
     public Material[] listColor;
 
     [SerializeField]
@@ -19,10 +22,25 @@ public class GameManager : Singleton<GameManager>
         OnInit();
     }
 
-    void OnInit() { }
+    void OnInit()
+    {
+        for (int i = 0; i < botNumber; i++)
+        {
+            SpawnBot();
+        }
+    }
 
     public int CountPlayer()
     {
         return botNumber + 1;
+    }
+
+    public void SpawnBot()
+    {
+        GameObject botObject = Instantiate(
+            botPrefab,
+            new Vector3(Random.Range(-5, 5), Random.Range(2, 4), 0),
+            Quaternion.identity
+        );
     }
 }
