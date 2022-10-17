@@ -30,9 +30,18 @@ public class BrickHolder : Singleton<BrickHolder>
     public void AddBrick(int indexOnPlan)
     {
         GameObject brickGameobject = brickHeldPrefab.gameObject;
-        GameObject brickHeld = Instantiate(brickGameobject, transform, false);
+        GameObject brickHeld = Instantiate(
+            brickGameobject,
+            Vector3.zero,
+            Quaternion.identity,
+            transform
+        );
         Brick brickHeldComp = brickHeld.GetComponent<Brick>();
-        brickHeldComp.OnInit(GameManager.Instance.playerColorTarget, Vector3.zero, indexOnPlan);
+        brickHeldComp.OnInit(
+            GetComponentInParent<Character>().brickColorTarget,
+            Vector3.zero,
+            indexOnPlan
+        );
         stackBrickIsHeld.Push(brickHeld);
         brickHeld.transform.localPosition = BrickNumberToPosition(brickAmount);
     }

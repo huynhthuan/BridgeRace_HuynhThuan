@@ -21,7 +21,7 @@ public class PlayerNavMesh : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Player.Instance.IsGrounded())
+        if (GameManager.Instance.player.IsGrounded())
         {
             navMeshAgent.destination = moveToPositionTransform.position;
         }

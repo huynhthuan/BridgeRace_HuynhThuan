@@ -9,7 +9,8 @@ public class CollisionSensor : Singleton<CollisionSensor>
 
     private void Start()
     {
-        playerColor = GameManager.Instance.playerColorTarget;
+        playerColor = GetComponentInParent<Character>().brickColorTarget;
+        Debug.Log("playerColor " + playerColor);
     }
 
     private void OnTriggerEnter(Collider other)

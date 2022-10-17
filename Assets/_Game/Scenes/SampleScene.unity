@@ -465,6 +465,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: b068ddbbe02d16a4f8374cfefeb2526b, type: 2}
   - {fileID: 2100000, guid: 0ba49e109fc42d141a04cbb11e9e956d, type: 2}
   - {fileID: 2100000, guid: 5bdd7bca202fd134db37f97b69ea12aa, type: 2}
+  player: {fileID: 355618637}
   playerColorTarget: 1
 --- !u!4 &155054592
 Transform:
@@ -743,6 +744,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 222715112688516099, guid: 0c602a1a865929d4b8b1f1e4979902ee, type: 3}
   m_PrefabInstance: {fileID: 1162534985}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &355618637 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1576792536555978043, guid: 2ef1822ac7c5d1241a84bc2d4984a3c8, type: 3}
+  m_PrefabInstance: {fileID: 2920371392311125803}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 633521a4e6ad51141ab4ed9e56964476, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &394361004
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2251,6 +2263,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e6279659d378994f88ca85837ffb76e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetSelect: {fileID: 0}
   color: 0
   indexOnPlane: 0
 --- !u!1001 &1234138478
@@ -4210,7 +4223,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2002801882312567908, guid: 2ef1822ac7c5d1241a84bc2d4984a3c8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.75
+      value: 4.4
       objectReference: {fileID: 0}
     - target: {fileID: 2002801882312567908, guid: 2ef1822ac7c5d1241a84bc2d4984a3c8, type: 3}
       propertyPath: m_LocalPosition.z

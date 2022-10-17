@@ -4,17 +4,27 @@ using UnityEngine;
 
 public class BotIdleState : IStateBot
 {
-    void IStateBot.OnEnter(Bot bot)
+    float randomTime;
+    float timer;
+
+    public void OnEnter(Bot bot)
     {
+        timer = 0;
+        randomTime = Random.Range(2f, 4f);
         bot.limitBrickHolder = Random.Range(1, GameManager.Instance.CountPlayer());
-        bot.rb.velocity = Vector3.zero;
     }
 
-    void IStateBot.OnExecute(Bot bot)
+    public void OnExecute(Bot bot)
     {
-        bot.ScanAllBrick();
-        bot.ChangeState(new CollectBrickState());
+        bot.rb.velocity = Vector3.zero;
+
+        timer += Time.deltaTime;
+
+        if (timer > randomTime)
+        {
+            bot.ChangeState(new CollectBrickState());
+        }
     }
 
-    void IStateBot.OnExit(Bot bot) { }
+    public void OnExit(Bot bot) { }
 }

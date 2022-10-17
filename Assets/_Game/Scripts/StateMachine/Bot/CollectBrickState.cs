@@ -4,17 +4,18 @@ using UnityEngine;
 
 public class CollectBrickState : IStateBot
 {
-    void IStateBot.OnEnter(Bot bot) { }
+    private Vector3 dirToTarget;
 
-    void IStateBot.OnExecute(Bot bot)
+    public void OnEnter(Bot bot) { }
+
+    public void OnExecute(Bot bot)
     {
-        Vector3 dirToTarget = bot.GetDirToBrickCollect();
+        bot.ScanAllBrick();
+        dirToTarget = bot.GetDirToBrickCollect();
+        // Debug.Log("dirToTarget " + dirToTarget);
         bot.Move(dirToTarget);
-        if (Vector3.Distance(bot.transform.position, bot.brickTartget.position) <= 0.01f)
-        {
-            bot.ChangeState(new BotIdleState());
-        }
+        // bot.ChangeState(new MoveToBridgeState());
     }
 
-    void IStateBot.OnExit(Bot bot) { }
+    public void OnExit(Bot bot) { }
 }
