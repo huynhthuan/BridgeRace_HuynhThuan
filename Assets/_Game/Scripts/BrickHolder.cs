@@ -14,13 +14,18 @@ public class BrickHolder : MonoBehaviour
     public int brickAmount => stackBrickIsHeld.Count;
 
     private BrickColor colorTarget;
+    private Player player;
 
     // Start is called before the first frame update
-    void Start() { }
-
-    public void OnInit(BrickColor color)
+    void Start()
     {
-        colorTarget = color;
+        OnInit();
+    }
+
+    public void OnInit()
+    {
+        player = GetComponentInParent<Player>();
+        colorTarget = player.brickColorTarget;
         // Reset brick held
         RemoveAllBrick();
     }

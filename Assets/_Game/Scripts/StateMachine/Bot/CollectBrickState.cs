@@ -6,16 +6,16 @@ public class CollectBrickState : IStateBot
 {
     private Vector3 dirToTarget;
 
-    public void OnEnter(Bot bot) { }
+    public void OnEnter(BotAI bot) { }
 
-    public void OnExecute(Bot bot)
+    public void OnExecute(BotAI bot)
     {
         bot.ScanAllBrick();
         dirToTarget = bot.GetDirToBrickCollect();
         // Debug.Log("dirToTarget " + dirToTarget);
-        bot.Move(dirToTarget);
+        bot.player.Move(dirToTarget);
         // bot.ChangeState(new MoveToBridgeState());
     }
 
-    public void OnExit(Bot bot) { }
+    public void OnExit(BotAI bot) { }
 }

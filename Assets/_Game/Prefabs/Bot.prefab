@@ -13,7 +13,8 @@ GameObject:
   - component: {fileID: 5294547091385424983}
   - component: {fileID: 4893835592697370864}
   - component: {fileID: 7067435556574151296}
-  - component: {fileID: 5056870981461974027}
+  - component: {fileID: 1189436758463877647}
+  - component: {fileID: 4341479942213335637}
   m_Layer: 0
   m_Name: Bot
   m_TagString: Untagged
@@ -117,7 +118,30 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!114 &5056870981461974027
+--- !u!114 &1189436758463877647
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3719769615134504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 633521a4e6ad51141ab4ed9e56964476, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  brickColorTarget: 0
+  brickHolder: {fileID: 3394527402862336388}
+  colliderPlayer: {fileID: 4893835592697370864}
+  collisionSensor: {fileID: 2648968243756108231}
+  rb: {fileID: 7067435556574151296}
+  speed: 1200
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 65
+  currentStageLevel: 0
+  isCanMove: 1
+--- !u!114 &4341479942213335637
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -129,17 +153,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91c4101e4fc3b2142aa594c453efbde5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  brickColorTarget: 0
-  brickHolder: {fileID: 3394527402862336388}
-  colliderPlayer: {fileID: 4893835592697370864}
-  collisionSensor: {fileID: 2648968243756108231}
-  rb: {fileID: 7067435556574151296}
-  speed: 2000
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 65
-  currentStageLevel: 0
-  isCanMove: 1
   brickTartget: {fileID: 0}
   limitBrickHolder: 0
 --- !u!1 &445777436940422127

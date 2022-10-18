@@ -3,26 +3,28 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-public class Bot : Character
+public class BotAI : MonoBehaviour
 {
     private IStateBot currentState;
 
     private Dictionary<int, float> dictionaryBrick = new Dictionary<int, float> { };
 
     public Transform brickTartget;
+    internal Player player;
 
     public int limitBrickHolder;
 
     // Start is called before the first frame update
     void Start()
     {
+        player = GetComponent<Player>();
         ChangeState(new BotIdleState());
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (currentState != null && IsGrounded())
+        if (currentState != null && player.IsGrounded())
         {
             currentState.OnExecute(this);
         }
@@ -58,7 +60,7 @@ public class Bot : Character
         {
             Brick brickComp = brickPlan.GetChild(index).GetComponent<Brick>();
 
-            if (brickComp.color == brickColorTarget && brickComp.gameObject.activeSelf)
+            if (brickComp.color == player.brickColorTarget && brickComp.gameObject.activeSelf)
             {
                 dictionaryBrick.Add(
                     index,

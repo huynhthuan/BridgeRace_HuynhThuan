@@ -7,17 +7,19 @@ public class CollisionSensor : Singleton<CollisionSensor>
     BrickColor playerColor;
     private BrickColor currentCollorColision;
 
+    private Player player;
     private BrickHolder brickHolderComp;
 
-    private Character player;
-
-    private void Start() { }
-
-    public void OnInit(BrickHolder brickHolder, BrickColor colorTarget)
+    private void Start()
     {
-        playerColor = colorTarget;
-        brickHolderComp = brickHolder;
-        player = GetComponentInParent<Character>();
+        OnInit();
+    }
+
+    public void OnInit()
+    {
+        player = GetComponentInParent<Player>();
+        playerColor = player.brickColorTarget;
+        brickHolderComp = player.brickHolder;
     }
 
     private void OnTriggerEnter(Collider other)

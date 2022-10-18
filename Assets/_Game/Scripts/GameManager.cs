@@ -27,6 +27,7 @@ public class GameManager : Singleton<GameManager>
 
     void OnInit()
     {
+        player.OnInit(playerColorTarget);
         InitBot();
     }
 
@@ -46,8 +47,8 @@ public class GameManager : Singleton<GameManager>
             ),
             Quaternion.identity
         );
-        Bot botComp = botObject.GetComponent<Bot>();
-        botComp.OnInit((BrickColor)botIndex);
+        Player botPlayerComp = botObject.GetComponent<Player>();
+        botPlayerComp.OnInit((BrickColor)botIndex);
     }
 
     public void InitBot()
@@ -56,7 +57,5 @@ public class GameManager : Singleton<GameManager>
         {
             SpawnBot(i + 2);
         }
-
-        player.OnInit(playerColorTarget);
     }
 }
