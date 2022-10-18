@@ -140,8 +140,6 @@ GameObject:
   - component: {fileID: 3957858923482344368}
   - component: {fileID: 751768499660680551}
   - component: {fileID: 1576792536555978043}
-  - component: {fileID: 4698718203431666959}
-  - component: {fileID: 219000710}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -272,7 +270,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   brickColorTarget: 1
-  joystickController: {fileID: 0}
   colliderPlayer: {fileID: 5137790539617021113}
   rb: {fileID: 3957858923482344368}
   speed: 500
@@ -280,41 +277,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 65
   currentStageLevel: 0
---- !u!195 &4698718203431666959
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2106864866201218439}
-  m_Enabled: 0
-  m_AgentTypeID: 0
-  m_Radius: 0.5
-  m_Speed: 3.5
-  m_Acceleration: 8
-  avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 2
-  m_BaseOffset: 1
-  m_WalkableMask: 1
-  m_ObstacleAvoidanceType: 4
---- !u!114 &219000710
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2106864866201218439}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 79343dc90da865b489dce0838d81cf5d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveToPositionTransform: {fileID: 0}
 --- !u!1 &4882100107626862392
 GameObject:
   m_ObjectHideFlags: 0
