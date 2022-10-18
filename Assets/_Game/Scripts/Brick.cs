@@ -13,6 +13,9 @@ public enum BrickColor
 
 public class Brick : MonoBehaviour
 {
+    [SerializeField]
+    public Transform targetSelect;
+
     public BrickColor color;
 
     private Renderer rendererComp;

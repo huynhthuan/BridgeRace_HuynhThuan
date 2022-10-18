@@ -10,20 +10,11 @@ public class PlayerNavMesh : MonoBehaviour
 
     private NavMeshAgent navMeshAgent;
 
-    private void Awake()
-    {
-        navMeshAgent = GetComponent<NavMeshAgent>();
-    }
+    private void Awake() { }
 
     // Start is called before the first frame update
     void Start() { }
 
     // Update is called once per frame
-    void Update()
-    {
-        if (Player.Instance.IsGrounded())
-        {
-            navMeshAgent.destination = moveToPositionTransform.position;
-        }
-    }
+    void Update() { }
 }

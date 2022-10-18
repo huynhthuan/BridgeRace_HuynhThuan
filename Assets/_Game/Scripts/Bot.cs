@@ -20,7 +20,13 @@ public class Bot : Character
     }
 
     // Update is called once per frame
-    void Update() { }
+    void Update()
+    {
+        if (currentState != null && IsGrounded())
+        {
+            currentState.OnExecute(this);
+        }
+    }
 
     public void ChangeState(IStateBot newState)
     {
@@ -64,7 +70,12 @@ public class Bot : Character
 
     public Vector3 GetDirToBrickCollect()
     {
-        int indexBrickNearest = dictionaryBrick.Aggregate((x, y) => x.Value > y.Value ? x : y).Key;
+        if (dictionaryBrick.Count == 0)
+        {
+            return Vector3.zero;
+        }
+
+        int indexBrickNearest = dictionaryBrick.Aggregate((x, y) => x.Value <= y.Value ? x : y).Key;
 
         Transform nearestBrick = StageManager.Instance.planBrick.transform.GetChild(
             indexBrickNearest
@@ -72,7 +83,15 @@ public class Bot : Character
 
         brickTartget = nearestBrick;
 
-        return (nearestBrick.position - transform.position).normalized;
+        nearestBrick
+            .GetComponent<Brick>()
+            .targetSelect.gameObject.GetComponent<TargetSelect>()
+            .ActiveSelect();
+
+        return (
+            new Vector3(nearestBrick.position.x, transform.position.y, nearestBrick.position.z)
+            - transform.position
+        ).normalized;
     }
 
     public void ClearDictionaryBrick()
