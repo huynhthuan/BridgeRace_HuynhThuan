@@ -28,7 +28,7 @@ public class GameManager : Singleton<GameManager>
     void OnInit()
     {
         player.OnInit(playerColorTarget);
-        InitBot();
+        // InitBot();
     }
 
     public int CountPlayer()

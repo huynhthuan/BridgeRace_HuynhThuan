@@ -8,6 +8,9 @@ public class Player : MonoBehaviour
     public BrickColor brickColorTarget;
 
     [SerializeField]
+    public Transform checkBrickBrigde;
+
+    [SerializeField]
     public BrickHolder brickHolder;
 
     [SerializeField]
@@ -29,6 +32,7 @@ public class Player : MonoBehaviour
     public int currentStageLevel = 0;
 
     public bool isCanMove = true;
+    public Vector3 velocityAdjust;
 
     // Start is called before the first frame update
     void Start() { }
@@ -43,7 +47,9 @@ public class Player : MonoBehaviour
         transform.position = newPosition;
     }
 
-    private void Update() { }
+    private void Update() {
+
+    }
 
     public bool IsGrounded()
     {
@@ -66,8 +72,6 @@ public class Player : MonoBehaviour
 
     public bool IsOnBrigde()
     {
-        Debug.Log("brickHolder.brickAmount" + (brickHolder.brickAmount == 0));
-
         float distance = colliderPlayer.bounds.extents.y + 0.1f;
         Vector3 centerPoint = colliderPlayer.bounds.center;
 
@@ -84,22 +88,16 @@ public class Player : MonoBehaviour
 
     public void Move(Vector3 direction)
     {
-        if (IsGrounded() && isCanMove)
-        {
-            Vector3 velocityAdjust = AdjustVelocityToSlope(direction * speed * Time.deltaTime);
-
-            rb.velocity = velocityAdjust;
-        }
-
-        if (!isCanMove)
-        {
-            rb.velocity = Vector3.zero;
-        }
-
         if (Vector3.Distance(direction, Vector3.zero) > 0.01f)
         {
             Quaternion rotation = Quaternion.LookRotation(direction, Vector3.up);
             rb.transform.rotation = rotation;
+        }
+
+        if (IsGrounded() && isCanMove)
+        {
+            velocityAdjust = AdjustVelocityToSlope(direction * speed * Time.deltaTime);
+            rb.velocity = velocityAdjust;
         }
     }
 
@@ -118,5 +116,9 @@ public class Player : MonoBehaviour
     public void SetColorTarget(BrickColor color)
     {
         brickColorTarget = color;
+    }
+
+    private void FixedUpdate() {
+
     }
 }

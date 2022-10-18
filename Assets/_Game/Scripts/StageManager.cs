@@ -14,6 +14,9 @@ public class StageManager : Singleton<StageManager>
     [SerializeField]
     public Transform planBrick;
 
+    [SerializeField]
+    public List<Player> playersInStage;
+
     private int brickAmount;
     private int playerAmount;
     private int brickPerPlayer;
@@ -78,6 +81,13 @@ public class StageManager : Singleton<StageManager>
     {
         return planBrick.GetChild(index);
     }
+
+    public void AddPlayerToStage(Player player)
+    {
+        playersInStage.Add(player);
+    }
+
+
 
     // Update is called once per frame
     void Update() { }
