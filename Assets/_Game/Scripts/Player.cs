@@ -93,10 +93,11 @@ public class Player : MonoBehaviour
             Quaternion rotation = Quaternion.LookRotation(direction, Vector3.up);
             rb.transform.rotation = rotation;
         }
-
+        Debug.Log("Move " + isCanMove);
         if (IsGrounded() && isCanMove)
         {
-            velocityAdjust = AdjustVelocityToSlope(direction * speed * Time.deltaTime);
+            velocityAdjust = AdjustVelocityToSlope(direction * speed * Time.fixedDeltaTime);
+            Debug.Log("velocity " + (velocityAdjust));
             rb.velocity = velocityAdjust;
         }
     }
