@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
 public class DoorController : MonoBehaviour
 {
@@ -10,59 +11,100 @@ public class DoorController : MonoBehaviour
     [SerializeField]
     private Transform door2;
 
-    private StageManager stageManager;
+    internal StageManager stageManager;
+    private bool isOpenDoors = false;
+    private int playerAmount;
 
     // Start is called before the first frame update
     void Start()
     {
         stageManager = GetComponentInParent<StageManager>();
+        playerAmount = GameManager.Instance.CountPlayer();
     }
-
-    // Update is called once per frame
-    void Update() { }
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log("other.tag " + other.tag);
         Player playerComp = other.gameObject.GetComponent<Player>();
 
-        if (playerComp && !stageManager.playersInStage.Contains(playerComp))
+        if (playerComp)
         {
-            OpenDoor();
+            if (
+                !stageManager.colorInStage.Contains(playerComp.brickColorTarget)
+                && !(playerComp.velocityAdjust.y < 0)
+            )
+            {
+                OpenDoor();
+
+                playerComp.currentStageLevel++;
+
+                GameObject currentStage = GameManager.Instance.GetStageByLevel(
+                    playerComp.currentStageLevel
+                );
+                StageManager currentStageComp = currentStage.GetComponent<StageManager>();
+
+                playerComp.amountBrickdivided = currentStageComp.brickAmount / playerAmount;
+
+                stageManager.AddColorStage(
+                    playerComp.brickColorTarget,
+                    playerComp.currentStageLevel
+                );
+            }
+            else if (!(playerComp.velocityAdjust.y < 0))
+            {
+                OpenDoor();
+            }
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
+        Debug.Log("Exit door " + other.tag);
         CloseDoor();
     }
 
     public void OpenDoor()
     {
-        door1.position = Vector3.MoveTowards(
-            door1.position,
-            new Vector3(1.5f, door1.position.y, door1.position.z),
-            0.1f
-        );
-
-        door2.position = Vector3.MoveTowards(
-            door2.position,
-            new Vector3(-1.5f, door2.position.y, door2.position.z),
-            0.1f
-        );
+        isOpenDoors = true;
     }
 
     public void CloseDoor()
     {
-        door1.position = Vector3.MoveTowards(
-            door1.position,
-            new Vector3(1.66f, door1.position.y, door1.position.z),
-            0.1f
+        isOpenDoors = false;
+    }
+
+    private void Update()
+    {
+        door1.localPosition = Vector3.MoveTowards(
+            door1.localPosition,
+            new Vector3(isOpenDoors ? -4.5f : -1.5f, door1.localPosition.y, door1.localPosition.z),
+            0.05f
         );
 
-        door2.position = Vector3.MoveTowards(
-            door2.position,
-            new Vector3(-1.66f, door2.position.y, door2.position.z),
-            0.1f
+        door2.localPosition = Vector3.MoveTowards(
+            door2.localPosition,
+            new Vector3(isOpenDoors ? 4.5f : 1.5f, door2.localPosition.y, door2.localPosition.z),
+            0.05f
         );
     }
 }
+
+// #if UNITY_EDITOR
+[CustomEditor(typeof(DoorController))]
+public class DoorsButton : Editor
+{
+    public override void OnInspectorGUI()
+    {
+        DrawDefaultInspector();
+        if (GUILayout.Button("Open door"))
+        {
+            ((DoorController)target).OpenDoor();
+        }
+
+        if (GUILayout.Button("Close door"))
+        {
+            ((DoorController)target).CloseDoor();
+        }
+    }
+}
+// #endif

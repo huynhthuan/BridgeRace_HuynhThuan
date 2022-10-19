@@ -19,6 +19,19 @@ public class GameManager : Singleton<GameManager>
     [SerializeField]
     public BrickColor playerColorTarget = BrickColor.COLOR1;
 
+    [SerializeField]
+    public List<Player> playersInGame;
+
+    [SerializeField]
+    private Camera mainCamera;
+
+    [SerializeField]
+    private Transform map;
+
+    public bool enableJoystick = true;
+
+    private LevelController levelController;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -27,7 +40,19 @@ public class GameManager : Singleton<GameManager>
 
     void OnInit()
     {
+        levelController = map.GetComponentInChildren<LevelController>();
+
+        enableJoystick = true;
         player.OnInit(playerColorTarget);
+        playersInGame.Add(player);
+
+        levelController.OnInit();
+
+        Debug.Log("player.currentStageLevel " + player.currentStageLevel);
+        GetStageByLevel(1)
+            .GetComponent<StageManager>()
+            .AddColorStage(playerColorTarget, player.currentStageLevel);
+
         // InitBot();
     }
 
@@ -49,6 +74,10 @@ public class GameManager : Singleton<GameManager>
         );
         Player botPlayerComp = botObject.GetComponent<Player>();
         botPlayerComp.OnInit((BrickColor)botIndex);
+        playersInGame.Add(botPlayerComp);
+        levelController.listStage[0]
+            .GetComponent<StageManager>()
+            .AddColorStage((BrickColor)botIndex, botPlayerComp.currentStageLevel);
     }
 
     public void InitBot()
@@ -57,5 +86,15 @@ public class GameManager : Singleton<GameManager>
         {
             SpawnBot(i + 2);
         }
+    }
+
+    public void SwitchCameraToFinishStage()
+    {
+        // mainCamera.transform.position =
+    }
+
+    public GameObject GetStageByLevel(int levelStage)
+    {
+        return levelController.listStage[levelStage - 1].gameObject;
     }
 }

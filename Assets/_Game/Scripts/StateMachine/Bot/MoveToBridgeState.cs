@@ -4,18 +4,17 @@ using UnityEngine;
 
 public class MoveToBridgeState : IStateBot
 {
-    public void OnEnter(BotAI bot)
-    {
-
-    }
+    public void OnEnter(BotAI bot) { }
 
     public void OnExecute(BotAI bot)
     {
+        if (!bot.player.isCanMove)
+        {
+            bot.ChangeState(new CollectBrickState());
+        }
 
+        bot.GotoNextStage();
     }
 
-    public void OnExit(BotAI bot)
-    {
-
-    }
+    public void OnExit(BotAI bot) { }
 }

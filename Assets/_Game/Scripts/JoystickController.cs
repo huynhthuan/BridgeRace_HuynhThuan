@@ -20,6 +20,11 @@ public class JoystickController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (!GameManager.Instance.enableJoystick)
+        {
+            return;
+        }
+
         Vector3 direction =
             Vector3.forward * dynamicJoystick.Vertical + Vector3.right * dynamicJoystick.Horizontal;
         playerController.Move(direction);

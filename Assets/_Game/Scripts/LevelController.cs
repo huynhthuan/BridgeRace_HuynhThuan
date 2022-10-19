@@ -2,8 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LevelController : MonoBehaviour
+public class LevelController : Singleton<LevelController>
 {
+    [SerializeField]
+    public GameObject brickPrefab;
+
+    [SerializeField]
+    public Transform planBrick;
+
     [SerializeField]
     public Transform[] listStage;
 
@@ -12,4 +18,17 @@ public class LevelController : MonoBehaviour
 
     // Update is called once per frame
     void Update() { }
+
+    public void OnInit()
+    {
+        foreach (Transform stage in listStage)
+        {
+            stage.GetComponent<StageManager>().OnInit();
+        }
+    }
+
+    public Transform GetBrickObjectByIndex(int index)
+    {
+        return planBrick.GetChild(index);
+    }
 }

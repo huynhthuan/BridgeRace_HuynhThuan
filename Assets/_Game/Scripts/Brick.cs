@@ -20,6 +20,7 @@ public class Brick : MonoBehaviour
 
     private Renderer rendererComp;
     public int indexOnPlane;
+    public int stageLevel = 1;
 
     // Start is called before the first frame update
     void Start() { }

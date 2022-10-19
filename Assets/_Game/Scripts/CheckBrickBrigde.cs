@@ -27,31 +27,18 @@ public class CheckBrickBrigde : MonoBehaviour
     {
         RaycastHit brickBrigdeHit;
 
-        if (
-            Physics.Raycast(
-                transform.position,
-                Vector3.down,
-                out brickBrigdeHit,
-                Mathf.Infinity,
-                layerMask
-            )
-        )
+        if (Physics.Raycast(transform.position, Vector3.forward, out brickBrigdeHit, 1f, layerMask))
         {
             Debug.Log("brickBrigdeHit.collider.tag " + brickBrigdeHit.collider.tag);
             if (brickBrigdeHit.collider.tag == "Brigde Brick")
             {
                 Debug.DrawRay(
                     transform.position,
-                    Vector3.down * brickBrigdeHit.distance,
-                    Color.yellow
+                    Vector3.forward * brickBrigdeHit.distance,
+                    Color.red
                 );
-                BrickBrigde brickbrigdeComp = brickBrigdeHit.collider.GetComponent<BrickBrigde>();
 
-                if (brickHolderComp.brickAmount > 0 && brickbrigdeComp.color != playerColor)
-                {
-                    brickbrigdeComp.SetColorBrick(playerColor);
-                    brickHolderComp.RemoveBrick();
-                }
+                BrickBrigde brickbrigdeComp = brickBrigdeHit.collider.GetComponent<BrickBrigde>();
 
                 if (brickbrigdeComp.color != playerColor && brickHolderComp.brickAmount == 0)
                 {
@@ -61,7 +48,15 @@ public class CheckBrickBrigde : MonoBehaviour
                 {
                     player.isCanMove = true;
                 }
+
+                if (brickHolderComp.brickAmount > 0 && brickbrigdeComp.color != playerColor)
+                {
+                    brickbrigdeComp.SetColorBrick(playerColor);
+                    brickHolderComp.RemoveBrick();
+                }
             }
+        }else{
+            player.isCanMove = true;
         }
     }
 }

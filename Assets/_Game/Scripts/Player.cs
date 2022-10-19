@@ -29,10 +29,12 @@ public class Player : MonoBehaviour
 
     public LayerMask layerMask;
 
-    public int currentStageLevel = 0;
+    [SerializeField]
+    public int currentStageLevel = 1;
 
     public bool isCanMove = true;
     public Vector3 velocityAdjust;
+    public int amountBrickdivided;
 
     // Start is called before the first frame update
     void Start() { }
@@ -47,9 +49,7 @@ public class Player : MonoBehaviour
         transform.position = newPosition;
     }
 
-    private void Update() {
-
-    }
+    private void Update() { }
 
     public bool IsGrounded()
     {
@@ -118,7 +118,5 @@ public class Player : MonoBehaviour
         brickColorTarget = color;
     }
 
-    private void FixedUpdate() {
-
-    }
+    private void FixedUpdate() { }
 }

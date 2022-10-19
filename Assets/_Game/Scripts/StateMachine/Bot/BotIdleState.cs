@@ -11,7 +11,6 @@ public class BotIdleState : IStateBot
     {
         timer = 0;
         randomTime = Random.Range(2f, 4f);
-        bot.limitBrickHolder = Random.Range(1, GameManager.Instance.CountPlayer());
     }
 
     public void OnExecute(BotAI bot)

@@ -2,9 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.AI;
 
 public class BotAI : MonoBehaviour
 {
+    [SerializeField]
+    private Transform[] pointsNextStage;
     private IStateBot currentState;
 
     private Dictionary<int, float> dictionaryBrick = new Dictionary<int, float> { };
@@ -13,12 +16,15 @@ public class BotAI : MonoBehaviour
     internal Player player;
 
     public int limitBrickHolder;
+    private NavMeshAgent agent;
 
     // Start is called before the first frame update
     void Start()
     {
         player = GetComponent<Player>();
         ChangeState(new BotIdleState());
+        agent = GetComponent<NavMeshAgent>();
+        agent.autoBraking = false;
     }
 
     // Update is called once per frame
@@ -54,7 +60,7 @@ public class BotAI : MonoBehaviour
     {
         ClearDictionaryBrick();
 
-        Transform brickPlan = StageManager.Instance.planBrick;
+        Transform brickPlan = LevelController.Instance.planBrick;
 
         for (int index = 0; index < brickPlan.childCount; index++)
         {
@@ -79,7 +85,7 @@ public class BotAI : MonoBehaviour
 
         int indexBrickNearest = dictionaryBrick.Aggregate((x, y) => x.Value <= y.Value ? x : y).Key;
 
-        Transform nearestBrick = StageManager.Instance.planBrick.transform.GetChild(
+        Transform nearestBrick = LevelController.Instance.planBrick.transform.GetChild(
             indexBrickNearest
         );
 
@@ -99,5 +105,15 @@ public class BotAI : MonoBehaviour
     public void ClearDictionaryBrick()
     {
         dictionaryBrick.Clear();
+    }
+
+    public void GotoNextStage()
+    {
+        // Returns if no points have been set up
+        if (pointsNextStage.Length == 0)
+            return;
+
+        // Set the agent to go to the currently selected destination.
+        agent.destination = pointsNextStage[player.currentStageLevel - 1].position;
     }
 }

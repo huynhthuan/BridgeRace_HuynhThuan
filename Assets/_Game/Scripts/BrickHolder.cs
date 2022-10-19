@@ -55,7 +55,7 @@ public class BrickHolder : MonoBehaviour
             return;
         }
         GameObject brickToRemove = stackBrickIsHeld.Pop();
-        Transform brickOnPlaneRegenerate = StageManager.Instance.GetBrickObjectByIndex(
+        Transform brickOnPlaneRegenerate = LevelController.Instance.GetBrickObjectByIndex(
             brickToRemove.GetComponent<BrickHeld>().indexOnPlane
         );
         brickOnPlaneRegenerate.gameObject.SetActive(true);
