@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class Pillar : MonoBehaviour
 {
-    private StageManager stageManager;
+    private Stage stage;
+
     // Start is called before the first frame update
-    void Start() {
-        stageManager = GetComponentInParent<StageManager>();
+    void Start()
+    {
+        stage = GetComponentInParent<Stage>();
     }
 
     // Update is called once per frame
     void Update() { }
-
-
 }

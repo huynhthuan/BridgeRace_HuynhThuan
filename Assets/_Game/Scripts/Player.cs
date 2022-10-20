@@ -2,54 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : Character
 {
-    [SerializeField]
-    public BrickColor brickColorTarget;
-
-    [SerializeField]
-    public Transform checkBrickBrigde;
-
-    [SerializeField]
-    public BrickHolder brickHolder;
-
-    [SerializeField]
-    public Collider colliderPlayer;
-
-    [SerializeField]
-    public CollisionSensor collisionSensor;
-
-    [SerializeField]
-    public Rigidbody rb;
-
-    [SerializeField]
-    public float speed;
-
-    public RaycastHit groundHit;
-
-    public LayerMask layerMask;
-
-    [SerializeField]
-    public int currentStageLevel = 1;
-
-    public bool isCanMove = true;
     public Vector3 velocityAdjust;
-    public int amountBrickdivided;
 
     // Start is called before the first frame update
     void Start() { }
-
-    public void OnInit(BrickColor color)
-    {
-        SetColorTarget(color);
-    }
-
-    public void SetPositionPlayer(Vector3 newPosition)
-    {
-        transform.position = newPosition;
-    }
-
-    private void Update() { }
 
     public bool IsGrounded()
     {
@@ -93,11 +51,17 @@ public class Player : MonoBehaviour
             Quaternion rotation = Quaternion.LookRotation(direction, Vector3.up);
             rb.transform.rotation = rotation;
         }
-        Debug.Log("Move " + isCanMove);
+
+        if (!isCanMove)
+        {
+            rb.velocity = Vector3.zero;
+
+            return;
+        }
+
         if (IsGrounded() && isCanMove)
         {
             velocityAdjust = AdjustVelocityToSlope(direction * speed * Time.fixedDeltaTime);
-            Debug.Log("velocity " + (velocityAdjust));
             rb.velocity = velocityAdjust;
         }
     }
@@ -113,11 +77,4 @@ public class Player : MonoBehaviour
         }
         return velocity;
     }
-
-    public void SetColorTarget(BrickColor color)
-    {
-        brickColorTarget = color;
-    }
-
-    private void FixedUpdate() { }
 }

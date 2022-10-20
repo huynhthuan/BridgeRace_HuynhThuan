@@ -5,32 +5,25 @@ using UnityEngine;
 public class GameManager : Singleton<GameManager>
 {
     [SerializeField]
-    private int botNumber;
-
-    [SerializeField]
-    private GameObject botPrefab;
-
-    [SerializeField]
-    public Material[] listColor;
-
-    [SerializeField]
     public Player player;
 
     [SerializeField]
     public BrickColor playerColorTarget = BrickColor.COLOR1;
 
     [SerializeField]
+    private int botNumber;
+
+    [SerializeField]
+    private GameObject botPrefab;
+
+    [SerializeField]
     public List<Player> playersInGame;
 
     [SerializeField]
-    private Camera mainCamera;
+    public Material[] listColor;
 
     [SerializeField]
-    private Transform map;
-
-    public bool enableJoystick = true;
-
-    private LevelController levelController;
+    private Camera mainCamera;
 
     // Start is called before the first frame update
     void Start()
@@ -40,20 +33,23 @@ public class GameManager : Singleton<GameManager>
 
     void OnInit()
     {
-        levelController = map.GetComponentInChildren<LevelController>();
+        InitPlayer();
+        InitBot();
 
-        enableJoystick = true;
+        LevelManager.Instance.OnInit();
+    }
+
+    public void InitPlayer()
+    {
         player.OnInit(playerColorTarget);
-        playersInGame.Add(player);
+    }
 
-        levelController.OnInit();
-
-        Debug.Log("player.currentStageLevel " + player.currentStageLevel);
-        GetStageByLevel(1)
-            .GetComponent<StageManager>()
-            .AddColorStage(playerColorTarget, player.currentStageLevel);
-
-        // InitBot();
+    public void InitBot()
+    {
+        for (int i = 0; i < botNumber; i++)
+        {
+            SpawnBot(i + 2);
+        }
     }
 
     public int CountPlayer()
@@ -72,29 +68,12 @@ public class GameManager : Singleton<GameManager>
             ),
             Quaternion.identity
         );
-        Player botPlayerComp = botObject.GetComponent<Player>();
+        Bot botPlayerComp = botObject.GetComponent<Bot>();
         botPlayerComp.OnInit((BrickColor)botIndex);
-        playersInGame.Add(botPlayerComp);
-        levelController.listStage[0]
-            .GetComponent<StageManager>()
-            .AddColorStage((BrickColor)botIndex, botPlayerComp.currentStageLevel);
-    }
-
-    public void InitBot()
-    {
-        for (int i = 0; i < botNumber; i++)
-        {
-            SpawnBot(i + 2);
-        }
     }
 
     public void SwitchCameraToFinishStage()
     {
         // mainCamera.transform.position =
-    }
-
-    public GameObject GetStageByLevel(int levelStage)
-    {
-        return levelController.listStage[levelStage - 1].gameObject;
     }
 }

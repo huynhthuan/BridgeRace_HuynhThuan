@@ -24,17 +24,17 @@ public class FinishStage : MonoBehaviour
 
     private void OnFinishLevel()
     {
-        GameManager.Instance.enableJoystick = false;
+        // GameManager.Instance.enableJoystick = false;
 
-        List<Player> playersInGame = GameManager.Instance.playersInGame;
-        playersInGame.Sort(
-            (Player a, Player b) => a.currentStageLevel.CompareTo(b.currentStageLevel)
-        );
+        // List<Player> playersInGame = GameManager.Instance.playersInGame;
+        // playersInGame.Sort(
+        //     (Player a, Player b) => a.currentStageLevel.CompareTo(b.currentStageLevel)
+        // );
 
-        for (int i = 0; i < rankPoints.Length; i++)
-        {
-            playersInGame[i].transform.position = rankPoints[i].position;
-        }
+        // for (int i = 0; i < rankPoints.Length; i++)
+        // {
+        //     playersInGame[i].transform.position = rankPoints[i].position;
+        // }
 
         GameManager.Instance.SwitchCameraToFinishStage();
     }

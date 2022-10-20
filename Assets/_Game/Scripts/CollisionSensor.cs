@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class CollisionSensor : Singleton<CollisionSensor>
 {
-    BrickColor playerColor;
-
-    private Player player;
+    private BrickColor playerColorTarget;
+    private Character player;
     private BrickHolder brickHolderComp;
 
     private void Start()
@@ -16,8 +15,8 @@ public class CollisionSensor : Singleton<CollisionSensor>
 
     public void OnInit()
     {
-        player = GetComponentInParent<Player>();
-        playerColor = player.brickColorTarget;
+        player = GetComponentInParent<Character>();
+        playerColorTarget = player.colorTarget;
         brickHolderComp = player.brickHolder;
     }
 
@@ -26,10 +25,10 @@ public class CollisionSensor : Singleton<CollisionSensor>
         if (other.tag == "Brick")
         {
             Brick brickComp = other.GetComponent<Brick>();
-            if (brickComp.color == playerColor)
+            if (brickComp.color == playerColorTarget)
             {
                 other.gameObject.SetActive(false);
-                brickHolderComp.AddBrick(brickComp.indexOnPlane);
+                brickHolderComp.AddBrick(brickComp.indexOnPlane, brickComp.stageLevel);
             }
         }
     }

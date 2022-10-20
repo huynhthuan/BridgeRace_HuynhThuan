@@ -6,21 +6,24 @@ public class CollectBrickState : IStateBot
 {
     private Vector3 dirToTarget;
 
-    public void OnEnter(BotAI bot)
+    public void OnEnter(Bot bot)
     {
-        bot.limitBrickHolder = Random.Range(1, bot.player.amountBrickdivided);
+        bot.limitBrickHolder = Random.Range(1, bot.currentStage.brickPerPlayer);
+        Debug.Log("bot.amountBrickdivided  " + bot.amountBrickdivided);
+        Debug.Log("bot.limitBrickHolder  " + bot.limitBrickHolder);
     }
 
-    public void OnExecute(BotAI bot)
+    public void OnExecute(Bot bot)
     {
-        bot.ScanAllBrick();
-        dirToTarget = bot.GetDirToBrickCollect();
-        bot.player.Move(dirToTarget);
-        if (bot.player.brickHolder.brickAmount == bot.limitBrickHolder)
+        if (bot.brickHolder.brickAmount == bot.limitBrickHolder)
         {
-            bot.ChangeState(new MoveToBridgeState());
+            bot.ChangeState(new MoveToFinishPointState());
         }
+
+        bot.ScanAllBrick();
+        Vector3 bricKPostTarget = bot.GetDirToBrickCollect();
+        bot.navMeshAgent.destination = bricKPostTarget;
     }
 
-    public void OnExit(BotAI bot) { }
+    public void OnExit(Bot bot) { }
 }

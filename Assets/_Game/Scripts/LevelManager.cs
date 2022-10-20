@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LevelController : Singleton<LevelController>
+public class LevelManager : Singleton<LevelManager>
 {
     [SerializeField]
     public GameObject brickPrefab;
@@ -11,7 +11,10 @@ public class LevelController : Singleton<LevelController>
     public Transform planBrick;
 
     [SerializeField]
-    public Transform[] listStage;
+    public Stage[] listStage;
+
+    [SerializeField]
+    public Transform finishLevelPoint;
 
     // Start is called before the first frame update
     void Start() { }
@@ -21,9 +24,9 @@ public class LevelController : Singleton<LevelController>
 
     public void OnInit()
     {
-        foreach (Transform stage in listStage)
+        foreach (Stage stage in listStage)
         {
-            stage.GetComponent<StageManager>().OnInit();
+            stage.OnInit();
         }
     }
 

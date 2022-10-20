@@ -5,11 +5,11 @@ using UnityEngine;
 public interface IStateBot
 {
     // Enter state
-    void OnEnter(BotAI bot);
+    void OnEnter(Bot bot);
 
     // Stay state
-    void OnExecute(BotAI bot);
+    void OnExecute(Bot bot);
 
     // Exit state
-    void OnExit(BotAI bot);
+    void OnExit(Bot bot);
 }

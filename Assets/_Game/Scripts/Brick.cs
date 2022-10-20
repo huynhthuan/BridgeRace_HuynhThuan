@@ -31,7 +31,6 @@ public class Brick : MonoBehaviour
         rendererComp = transform.GetComponent<Renderer>();
         color = brickColor;
         transform.position = position;
-
         SetColorBrick(color);
     }
 

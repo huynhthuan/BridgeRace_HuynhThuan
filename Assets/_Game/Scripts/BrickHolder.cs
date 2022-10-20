@@ -10,11 +10,9 @@ public class BrickHolder : MonoBehaviour
     private GameObject brickHeldPrefab;
 
     private Stack<GameObject> stackBrickIsHeld = new Stack<GameObject>();
-
     public int brickAmount => stackBrickIsHeld.Count;
-
-    private BrickColor colorTarget;
-    private Player player;
+    private BrickColor playerColorTarget;
+    private Character player;
 
     // Start is called before the first frame update
     void Start()
@@ -24,15 +22,15 @@ public class BrickHolder : MonoBehaviour
 
     public void OnInit()
     {
-        player = GetComponentInParent<Player>();
-        colorTarget = player.brickColorTarget;
+        player = GetComponentInParent<Character>();
+        playerColorTarget = player.colorTarget;
         // Reset brick held
         RemoveAllBrick();
     }
 
     public void SuckBrick(Vector3 brickPosition) { }
 
-    public void AddBrick(int indexOnPlan)
+    public void AddBrick(int indexOnPlan, int stageLevel)
     {
         GameObject brickGameobject = brickHeldPrefab.gameObject;
         GameObject brickHeld = Instantiate(
@@ -42,7 +40,7 @@ public class BrickHolder : MonoBehaviour
             transform
         );
         Brick brickHeldComp = brickHeld.GetComponent<Brick>();
-        brickHeldComp.OnInit(colorTarget, Vector3.zero, indexOnPlan);
+        brickHeldComp.OnInit(playerColorTarget, Vector3.zero, indexOnPlan);
         stackBrickIsHeld.Push(brickHeld);
         brickHeld.transform.localPosition = BrickNumberToPosition(brickAmount);
         brickHeld.transform.localRotation = Quaternion.identity;
@@ -55,7 +53,7 @@ public class BrickHolder : MonoBehaviour
             return;
         }
         GameObject brickToRemove = stackBrickIsHeld.Pop();
-        Transform brickOnPlaneRegenerate = LevelController.Instance.GetBrickObjectByIndex(
+        Transform brickOnPlaneRegenerate = LevelManager.Instance.GetBrickObjectByIndex(
             brickToRemove.GetComponent<BrickHeld>().indexOnPlane
         );
         brickOnPlaneRegenerate.gameObject.SetActive(true);
@@ -86,12 +84,12 @@ public class BrickHolderButton : Editor
         DrawDefaultInspector();
         if (GUILayout.Button("Add 1 brick is held"))
         {
-            ((BrickHolder)target).AddBrick(0);
+            // ((BrickHolder)target).AddBrick(0);
         }
 
         if (GUILayout.Button("Remove 1 brick is held"))
         {
-            ((BrickHolder)target).RemoveBrick();
+            // ((BrickHolder)target).RemoveBrick();
         }
     }
 }
