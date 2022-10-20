@@ -24,30 +24,16 @@ public class DoorController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        // if (other.tag == "Player")
-        // {
-        //     Debug.Log("other.tag " + other.tag);
-        //     Player playerComp = other.gameObject.GetComponent<Player>();
+        if (other.tag == "Player")
+        {
+            Debug.Log("other.tag " + other.tag);
+            Character characterComp = other.GetComponent<Character>();
 
-        //     if (playerComp)
-        //     {
-        //         if (!stage.colorInStage.Contains(playerComp.brickColorTarget))
-        //         {
-        //             OpenDoor();
-
-        //             playerComp.currentStageLevel++;
-
-        //             GameObject currentStage = GameManager.Instance.GetStageByLevel(
-        //                 playerComp.currentStageLevel
-        //             );
-        //             Stage currentStageComp = currentStage.GetComponent<Stage>();
-
-        //             playerComp.amountBrickdivided = currentStageComp.brickAmount / playerAmount;
-
-        //             stage.AddColorStage(playerComp.brickColorTarget, playerComp.currentStageLevel);
-        //         }
-        //     }
-        // }
+            if (characterComp && characterComp.currentStage.stageLevel != stage.stageLevel)
+            {
+                OpenDoor();
+            }
+        }
     }
 
     private void OnTriggerExit(Collider other)

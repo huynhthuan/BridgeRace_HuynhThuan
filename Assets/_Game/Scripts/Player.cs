@@ -14,12 +14,17 @@ public class Player : Character
         float distance = colliderPlayer.bounds.extents.y + 0.1f;
         Vector3 centerPoint = colliderPlayer.bounds.center;
 
-        Debug.DrawRay(centerPoint, Vector3.down * distance, Color.yellow);
+        Debug.DrawRay(centerPoint, Vector3.down * distance, Color.red);
 
         if (Physics.Raycast(centerPoint, Vector3.down, out groundHit, distance, layerMask))
         {
             string tagCollider = groundHit.collider.tag;
-            if (tagCollider == "Ground" || tagCollider == "Brick" || tagCollider == "Brigde")
+            if (
+                tagCollider == "Ground"
+                || tagCollider == "Brick"
+                || tagCollider == "Brigde"
+                || tagCollider == "New stage"
+            )
             {
                 return true;
             }

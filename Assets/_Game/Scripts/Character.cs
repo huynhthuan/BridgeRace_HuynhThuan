@@ -37,7 +37,11 @@ public class Character : MonoBehaviour
 
     public void OnInit(BrickColor color)
     {
+        GameManager.Instance.playersInGame.Add(this);
         SetColorTarget(color);
+        collisionSensor.OnInit();
+        brickHolder.OnInit();
+        checkBrickBrigde.GetComponent<CheckBrickBrigde>().OnInit();
     }
 
     public void SetPositionPlayer(Vector3 newPosition)

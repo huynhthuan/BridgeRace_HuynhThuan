@@ -12,19 +12,19 @@ public class Stage : MonoBehaviour
     public Transform planBrick;
 
     [SerializeField]
-    private int stageLevel;
+    public int stageLevel;
 
     private GameObject brickPrefab;
     private LevelManager levelManager;
     private int playerAmount;
     private int brickTotal;
     public int brickPerPlayer;
+    public List<Character> playerInStage;
 
     public void OnInit()
     {
         levelManager = LevelManager.Instance;
         brickPrefab = levelManager.brickPrefab;
-        planBrick = levelManager.planBrick;
 
         brickTotal = listBrickPosition.Length;
         playerAmount = GameManager.Instance.CountPlayer();
@@ -90,5 +90,10 @@ public class Stage : MonoBehaviour
                 brickComp.gameObject.SetActive(true);
             }
         }
+    }
+
+    public Transform GetBrickObjectByIndex(int index)
+    {
+        return planBrick.GetChild(index);
     }
 }

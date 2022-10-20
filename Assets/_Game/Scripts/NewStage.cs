@@ -10,10 +10,20 @@ public class NewStage : MonoBehaviour
     {
         Character player = other.GetComponent<Character>();
 
-        if (player != null)
+        if (player == null)
         {
-            player.currentStage = stage;
-            stage.EnableBrickColor(player.colorTarget);
+            return;
         }
+
+        if (stage.playerInStage.Contains(player))
+        {
+            return;
+        }
+
+        Debug.Log("Init stage " + stage.stageLevel);
+        player.brickHolder.RemoveAllBrick();
+        player.currentStage = stage;
+        stage.EnableBrickColor(player.colorTarget);
+        stage.playerInStage.Add(player);
     }
 }

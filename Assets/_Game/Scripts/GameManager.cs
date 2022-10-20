@@ -17,13 +17,15 @@ public class GameManager : Singleton<GameManager>
     private GameObject botPrefab;
 
     [SerializeField]
-    public List<Player> playersInGame;
+    public List<Character> playersInGame;
 
     [SerializeField]
     public Material[] listColor;
 
     [SerializeField]
     private Camera mainCamera;
+
+    public bool enableJoystick = true;
 
     // Start is called before the first frame update
     void Start()
@@ -74,6 +76,10 @@ public class GameManager : Singleton<GameManager>
 
     public void SwitchCameraToFinishStage()
     {
-        // mainCamera.transform.position =
+        mainCamera.transform.position = Vector3.MoveTowards(
+            mainCamera.transform.position,
+            LevelManager.Instance.cameraEndPoint,
+            0.1f
+        );
     }
 }

@@ -15,10 +15,7 @@ public class BrickHolder : MonoBehaviour
     private Character player;
 
     // Start is called before the first frame update
-    void Start()
-    {
-        OnInit();
-    }
+    void Start() { }
 
     public void OnInit()
     {
@@ -53,9 +50,13 @@ public class BrickHolder : MonoBehaviour
             return;
         }
         GameObject brickToRemove = stackBrickIsHeld.Pop();
-        Transform brickOnPlaneRegenerate = LevelManager.Instance.GetBrickObjectByIndex(
+        Transform brickOnPlaneRegenerate = player.currentStage.GetBrickObjectByIndex(
             brickToRemove.GetComponent<BrickHeld>().indexOnPlane
         );
+        brickOnPlaneRegenerate
+            .GetComponent<Brick>()
+            .targetSelect.GetComponent<TargetSelect>()
+            .DeActiveSelect();
         brickOnPlaneRegenerate.gameObject.SetActive(true);
         Destroy(brickToRemove);
     }

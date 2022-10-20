@@ -8,13 +8,13 @@ public class LevelManager : Singleton<LevelManager>
     public GameObject brickPrefab;
 
     [SerializeField]
-    public Transform planBrick;
-
-    [SerializeField]
     public Stage[] listStage;
 
     [SerializeField]
     public Transform finishLevelPoint;
+
+    [SerializeField]
+    public Vector3 cameraEndPoint;
 
     // Start is called before the first frame update
     void Start() { }
@@ -28,10 +28,5 @@ public class LevelManager : Singleton<LevelManager>
         {
             stage.OnInit();
         }
-    }
-
-    public Transform GetBrickObjectByIndex(int index)
-    {
-        return planBrick.GetChild(index);
     }
 }

@@ -7,24 +7,28 @@ public class CheckBrickBrigde : MonoBehaviour
     [SerializeField]
     private LayerMask layerMask;
 
-    private Character player;
+    private Character character;
+    private Player player;
     private BrickHolder brickHolderComp;
 
     BrickColor playerColor;
 
     // Start is called before the first frame update
-    void Start()
+    void Start() { }
+
+    public void OnInit()
     {
-        player = GetComponentInParent<Character>();
-        playerColor = player.colorTarget;
-        brickHolderComp = player.brickHolder;
+        character = GetComponentInParent<Character>();
+        player = GetComponentInParent<Player>();
+        playerColor = character.colorTarget;
+        brickHolderComp = character.brickHolder;
     }
 
     private void Update()
     {
         RaycastHit brickBrigdeHit;
 
-        Debug.DrawRay(transform.position, Vector3.down * Mathf.Infinity, Color.black);
+        Debug.DrawRay(transform.position, Vector3.down * 2f, Color.black);
 
         if (
             Physics.Raycast(
@@ -44,33 +48,28 @@ public class CheckBrickBrigde : MonoBehaviour
                 brickHolderComp.RemoveBrick();
             }
 
-            // if (
-            //     (
-            //         player.velocityAdjust.y == 0
-            //         || (
-            //             player.velocityAdjust.y == 0
-            //             && (player.velocityAdjust.x <= 0 && player.velocityAdjust.z >= 0)
-            //         )
-            //         || (
-            //             player.velocityAdjust.y == 0
-            //             && (player.velocityAdjust.x >= 0 && player.velocityAdjust.z >= 0)
-            //         )
-            //     )
-            //     && brickbrigdeComp.color != playerColor
-            //     && brickbrigdeComp.color == BrickColor.COLOR0
-            //     && brickHolderComp.brickAmount == 0
-            // )
-            // {
-            //     player.isCanMove = false;
-            // }
-            // else
-            // {
-            //     player.isCanMove = true;
-            // }
+            if (player != null)
+            {
+                if (
+                    brickbrigdeComp.color != playerColor
+                    && brickHolderComp.brickAmount == 0
+                    && player.velocityAdjust.y == 0
+                )
+                {
+                    player.isCanMove = false;
+                }
+                else
+                {
+                    player.isCanMove = true;
+                }
+            }
         }
         else
         {
-            player.isCanMove = true;
+            if (player != null)
+            {
+                player.isCanMove = true;
+            }
         }
     }
 }
