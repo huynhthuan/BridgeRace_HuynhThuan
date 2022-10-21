@@ -27,7 +27,7 @@ public class Stage : MonoBehaviour
         brickPrefab = levelManager.brickPrefab;
 
         brickTotal = listBrickPosition.Length;
-        playerAmount = GameManager.Instance.CountPlayer();
+        playerAmount = levelManager.CountPlayer();
         brickPerPlayer = brickTotal / playerAmount;
 
         // Debug.Log("BrickTotal stage " + stageLevel + ": " + brickTotal);

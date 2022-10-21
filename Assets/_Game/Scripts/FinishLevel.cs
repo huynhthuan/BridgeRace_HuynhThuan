@@ -17,7 +17,9 @@ public class FinishLevel : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            GameManager.Instance.enableJoystick = false;
+            GameManager.Instance.ChangeState(new FinishGameState());
+
+            LevelManager.Instance.player.rb.velocity = Vector3.zero;
 
             List<Character> playersInGame = GameManager.Instance.playersInGame;
 
@@ -36,7 +38,8 @@ public class FinishLevel : MonoBehaviour
                 if (playersInGame[i].GetComponent<Bot>() != null)
                 {
                     NavMeshAgent botAgent = playersInGame[i].GetComponent<NavMeshAgent>();
-                    botAgent.isStopped = true;
+                    botAgent.enabled = false;
+                    playersInGame[i].GetComponent<CapsuleCollider>().isTrigger = false;
                 }
 
                 playersInGame[i].rb.velocity = Vector3.zero;
@@ -44,9 +47,10 @@ public class FinishLevel : MonoBehaviour
                 playersInGame[i].rb.rotation = Quaternion.Euler(0f, 180f, 0);
                 playersInGame[i].brickHolder.RemoveAllBrick();
                 playersInGame[i].transform.position = finishStage.planRankPoints[i].position;
+                playersInGame[i].ChangeAnim("Victory");
             }
 
-            GameManager.Instance.SwitchCameraToFinishStage();
+            LevelManager.Instance.SwitchCameraFinishStage();
         }
     }
 }

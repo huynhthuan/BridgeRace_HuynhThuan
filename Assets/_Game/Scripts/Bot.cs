@@ -16,6 +16,7 @@ public class Bot : Character
     void Start()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
+        navMeshAgent.enabled = true;
         ChangeState(new BotIdleState());
     }
 

@@ -8,78 +8,70 @@ public class GameManager : Singleton<GameManager>
     public Player player;
 
     [SerializeField]
-    public BrickColor playerColorTarget = BrickColor.COLOR1;
-
-    [SerializeField]
-    private int botNumber;
-
-    [SerializeField]
-    private GameObject botPrefab;
-
-    [SerializeField]
     public List<Character> playersInGame;
 
     [SerializeField]
     public Material[] listColor;
 
-    [SerializeField]
-    private Camera mainCamera;
-
     public bool enableJoystick = true;
+    public bool isPlayGame = false;
+    private IStateGame currentState;
+
+    protected void Awake()
+    {
+        Input.multiTouchEnabled = false;
+        Application.targetFrameRate = 60;
+        Screen.sleepTimeout = SleepTimeout.NeverSleep;
+
+        int maxScreenHeight = 1280;
+        float ratio =
+            (float)Screen.currentResolution.width / (float)Screen.currentResolution.height;
+        if (Screen.currentResolution.height > maxScreenHeight)
+        {
+            Screen.SetResolution(
+                Mathf.RoundToInt(ratio * (float)maxScreenHeight),
+                maxScreenHeight,
+                true
+            );
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        OnInit();
+        ChangeState(new LobbyGameState());
     }
 
-    void OnInit()
+    private void Update()
     {
-        InitPlayer();
-        InitBot();
-
-        LevelManager.Instance.OnInit();
-    }
-
-    public void InitPlayer()
-    {
-        player.OnInit(playerColorTarget);
-    }
-
-    public void InitBot()
-    {
-        for (int i = 0; i < botNumber; i++)
+        if (currentState != null)
         {
-            SpawnBot(i + 2);
+            currentState.OnExecute(this);
         }
     }
 
-    public int CountPlayer()
+    public void OnInit()
     {
-        return botNumber + 1;
+        LevelManager.Instance.OnInit();
     }
 
-    public void SpawnBot(int botIndex)
+    public void ChangeState(IStateGame newState)
     {
-        GameObject botObject = Instantiate(
-            botPrefab,
-            new Vector3(
-                player.transform.position.x + (botIndex % 2 == 0 ? 2f : -2f),
-                Random.Range(2, 4),
-                player.transform.position.z
-            ),
-            Quaternion.identity
-        );
-        Bot botPlayerComp = botObject.GetComponent<Bot>();
-        botPlayerComp.OnInit((BrickColor)botIndex);
-    }
+        // Check has current state
+        if (currentState != null)
+        {
+            // Exit current state
+            currentState.OnExit(this);
+        }
 
-    public void SwitchCameraToFinishStage()
-    {
-        mainCamera.transform.position = Vector3.MoveTowards(
-            mainCamera.transform.position,
-            LevelManager.Instance.cameraEndPoint,
-            0.1f
-        );
+        // Set new state
+        currentState = newState;
+
+        // Check set new state success
+        if (currentState != null)
+        {
+            // Enter new state
+            currentState.OnEnter(this);
+        }
     }
 }

@@ -8,7 +8,7 @@ public class MainMenu : UICanvas
 {
     public void PlayButton()
     {
-        UIManager.Instance.OpenUI<GamePlay>();
         Close();
+        GameManager.Instance.ChangeState(new PlayGameState());
     }
 }

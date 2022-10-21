@@ -19,7 +19,7 @@ public class DoorController : MonoBehaviour
     void Start()
     {
         stage = GetComponentInParent<Stage>();
-        playerAmount = GameManager.Instance.CountPlayer();
+        playerAmount = LevelManager.Instance.CountPlayer();
     }
 
     private void OnTriggerEnter(Collider other)

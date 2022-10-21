@@ -7,9 +7,10 @@ public class Win : UICanvas
 {
     public Text score;
 
-    public void MainMenuButton()
+    public void BackLobbyButton()
     {
-        UIManager.Instance.OpenUI<MainMenu>();
+        GameManager.Instance.ChangeState(new LobbyGameState());
+        UIManager.Instance.OpenUI<Lobby>();
         Close();
     }
 }

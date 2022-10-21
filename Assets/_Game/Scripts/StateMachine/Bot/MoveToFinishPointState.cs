@@ -12,7 +12,11 @@ public class MoveToFinishPointState : IStateBot
         {
             bot.ChangeState(new CollectBrickState());
         }
-        bot.navMeshAgent.destination = LevelManager.Instance.finishLevelPoint.position;
+
+        if (bot.navMeshAgent.enabled)
+        {
+            bot.navMeshAgent.destination = LevelManager.Instance.finishLevelPoint.position;
+        }
     }
 
     public void OnExit(Bot bot) { }
