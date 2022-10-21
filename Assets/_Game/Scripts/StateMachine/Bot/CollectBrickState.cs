@@ -8,6 +8,7 @@ public class CollectBrickState : IStateBot
 
     public void OnEnter(Bot bot)
     {
+        bot.ChangeAnim("Run");
         bot.limitBrickHolder = Random.Range(1, bot.currentStage.brickPerPlayer);
         Debug.Log("bot.amountBrickdivided  " + bot.amountBrickdivided);
         Debug.Log("bot.limitBrickHolder  " + bot.limitBrickHolder);

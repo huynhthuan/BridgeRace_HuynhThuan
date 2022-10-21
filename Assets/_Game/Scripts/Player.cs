@@ -60,7 +60,7 @@ public class Player : Character
         if (!isCanMove)
         {
             rb.velocity = Vector3.zero;
-
+            ChangeAnim("Idle");
             return;
         }
 
@@ -68,6 +68,14 @@ public class Player : Character
         {
             velocityAdjust = AdjustVelocityToSlope(direction * speed * Time.fixedDeltaTime);
             rb.velocity = velocityAdjust;
+            if (rb.velocity != Vector3.zero)
+            {
+                ChangeAnim("Run");
+            }
+            else
+            {
+                ChangeAnim("Idle");
+            }
         }
     }
 

@@ -246,6 +246,7 @@ MonoBehaviour:
   colliderPlayer: {fileID: 5137790539617021113}
   collisionSensor: {fileID: 7627837246091141622}
   rb: {fileID: 3957858923482344368}
+  anim: {fileID: 3053408068078714977}
   speed: 500
   layerMask:
     serializedVersion: 2
@@ -609,6 +610,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 68603973298db084481ac0bd34a13703, type: 3}
+--- !u!95 &3053408068078714977 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 95849854986507094, guid: 68603973298db084481ac0bd34a13703, type: 3}
+  m_PrefabInstance: {fileID: 3101683384084763447}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3099804508900303951 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4454524126410616, guid: 68603973298db084481ac0bd34a13703, type: 3}

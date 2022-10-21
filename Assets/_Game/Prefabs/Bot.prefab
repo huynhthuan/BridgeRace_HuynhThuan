@@ -137,6 +137,7 @@ MonoBehaviour:
   colliderPlayer: {fileID: 4893835592697370864}
   collisionSensor: {fileID: 2648968243756108231}
   rb: {fileID: 7067435556574151296}
+  anim: {fileID: 4769652672971059920}
   speed: 500
   layerMask:
     serializedVersion: 2
@@ -523,5 +524,10 @@ PrefabInstance:
 --- !u!4 &4859580303387570126 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4601632058585474, guid: 4551c322922dcee41ad24a61f5055227, type: 3}
+  m_PrefabInstance: {fileID: 4855139475444702796}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &4769652672971059920 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 95101660215717020, guid: 4551c322922dcee41ad24a61f5055227, type: 3}
   m_PrefabInstance: {fileID: 4855139475444702796}
   m_PrefabAsset: {fileID: 0}

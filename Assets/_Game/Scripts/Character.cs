@@ -23,6 +23,9 @@ public class Character : MonoBehaviour
     public Rigidbody rb;
 
     [SerializeField]
+    public Animator anim;
+
+    [SerializeField]
     public float speed;
 
     public RaycastHit groundHit;
@@ -34,6 +37,8 @@ public class Character : MonoBehaviour
     public int amountBrickdivided;
 
     public Stage currentStage;
+
+    private string currentAnimName;
 
     public void OnInit(BrickColor color)
     {
@@ -52,5 +57,15 @@ public class Character : MonoBehaviour
     public void SetColorTarget(BrickColor color)
     {
         colorTarget = color;
+    }
+
+    public void ChangeAnim(string animName)
+    {
+        if (currentAnimName != animName)
+        {
+            anim.ResetTrigger(animName);
+            currentAnimName = animName;
+            anim.SetTrigger(currentAnimName);
+        }
     }
 }
