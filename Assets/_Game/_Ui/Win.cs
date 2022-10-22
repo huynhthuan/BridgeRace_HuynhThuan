@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Win : UICanvas
 {
@@ -9,8 +10,7 @@ public class Win : UICanvas
 
     public void BackLobbyButton()
     {
-        GameManager.Instance.ChangeState(new LobbyGameState());
-        UIManager.Instance.OpenUI<Lobby>();
         Close();
+        SceneManager.LoadScene("MainScene");
     }
 }
