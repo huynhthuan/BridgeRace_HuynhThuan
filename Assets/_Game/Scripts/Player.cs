@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : Character
 {
@@ -89,5 +90,13 @@ public class Player : Character
             return adjustVelocity;
         }
         return velocity;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Dead")
+        {
+            LevelManager.Instance.OnFinishLevel();
+        }
     }
 }

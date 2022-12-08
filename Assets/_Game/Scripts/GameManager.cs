@@ -52,6 +52,7 @@ public class GameManager : Singleton<GameManager>
 
     public void OnInit()
     {
+
         LevelManager.Instance.OnInit();
     }
 

@@ -1,15 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Lose : UICanvas
 {
     public Text score;
 
-    public void MainMenuButton()
+    public void ReplayButton()
     {
-        UIManager.Instance.OpenUI<MainMenu>();
         Close();
+        SceneManager.LoadScene("MainScene");
     }
 }

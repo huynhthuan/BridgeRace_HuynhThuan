@@ -247,7 +247,7 @@ MonoBehaviour:
   collisionSensor: {fileID: 7627837246091141622}
   rb: {fileID: 3957858923482344368}
   anim: {fileID: 3053408068078714977}
-  speed: 500
+  speed: 1000
   layerMask:
     serializedVersion: 2
     m_Bits: 65
@@ -429,7 +429,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7498783144703428556}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1

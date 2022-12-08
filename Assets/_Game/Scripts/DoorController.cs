@@ -79,21 +79,21 @@ public class DoorController : MonoBehaviour
 }
 
 // #if UNITY_EDITOR
-[CustomEditor(typeof(DoorController))]
-public class DoorsButton : Editor
-{
-    public override void OnInspectorGUI()
-    {
-        DrawDefaultInspector();
-        if (GUILayout.Button("Open door"))
-        {
-            ((DoorController)target).OpenDoor();
-        }
+// [CustomEditor(typeof(DoorController))]
+// public class DoorsButton : Editor
+// {
+//     public override void OnInspectorGUI()
+//     {
+//         DrawDefaultInspector();
+//         if (GUILayout.Button("Open door"))
+//         {
+//             ((DoorController)target).OpenDoor();
+//         }
 
-        if (GUILayout.Button("Close door"))
-        {
-            ((DoorController)target).CloseDoor();
-        }
-    }
-}
+//         if (GUILayout.Button("Close door"))
+//         {
+//             ((DoorController)target).CloseDoor();
+//         }
+//     }
+// }
 // #endif

@@ -6,7 +6,8 @@ public class FinishGameState : IStateGame
 {
     public void OnEnter(GameManager gameManger)
     {
-        UIManager.Instance.OpenUI<Win>();
+
+
     }
 
     public void OnExecute(GameManager gameManger)
