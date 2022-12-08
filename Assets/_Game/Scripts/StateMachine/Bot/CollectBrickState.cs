@@ -23,7 +23,10 @@ public class CollectBrickState : IStateBot
 
         bot.ScanAllBrick();
         Vector3 bricKPostTarget = bot.GetDirToBrickCollect();
-        bot.navMeshAgent.destination = bricKPostTarget;
+        if (bot.navMeshAgent.enabled)
+        {
+            bot.navMeshAgent.destination = bricKPostTarget;
+        }
     }
 
     public void OnExit(Bot bot) { }
