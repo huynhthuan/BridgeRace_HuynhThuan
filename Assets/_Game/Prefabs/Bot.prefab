@@ -289,9 +289,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6482769383933235520}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Anim
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -518,6 +518,10 @@ PrefabInstance:
     - target: {fileID: 4601632058585474, guid: 4551c322922dcee41ad24a61f5055227, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 95101660215717020, guid: 4551c322922dcee41ad24a61f5055227, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4551c322922dcee41ad24a61f5055227, type: 3}

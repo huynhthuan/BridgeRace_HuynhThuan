@@ -27,6 +27,6 @@ public class JoystickController : MonoBehaviour
 
         Vector3 direction =
             Vector3.forward * dynamicJoystick.Vertical + Vector3.right * dynamicJoystick.Horizontal;
-        playerController.Move(direction);
+        playerController.Move(direction.normalized);
     }
 }
